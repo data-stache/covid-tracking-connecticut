@@ -6,6 +6,7 @@ load("rda/theme_DataStache.rda")
 # NEW CASES
 p_new_case_percap_all <- covid_ct_counties %>%
   ggplot(aes(date, new_cases_percap_07da)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_line(aes(col = county), size = .25) +
   ggtitle("Connecticut New Cases Per Capita",
           subtitle = "New Cases by County") +
@@ -13,7 +14,6 @@ p_new_case_percap_all <- covid_ct_counties %>%
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   ylim(0, NA) +
   scale_color_brewer(palette = "Dark2") +
-  geom_hline(yintercept=0, col = "grey40", size = .4) +
   theme_DataStache() +
   facet_wrap(. ~ county, nrow = 2) +
   theme(strip.text.x = element_text(face = "bold")) +
@@ -29,6 +29,7 @@ p_new_case_percap_all <- covid_ct_counties %>%
 # NEW TESTS
 p_new_tests_percap_all <- covid_ct_counties %>%
   ggplot(aes(date, new_tests_percap_07da)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_line(aes(col = county), size = .25) +
   ggtitle("Connecticut New Tests Per Capita",
           subtitle = "New Tests by County") +
@@ -36,7 +37,6 @@ p_new_tests_percap_all <- covid_ct_counties %>%
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   ylim(0, NA) +
   scale_color_brewer(palette = "Dark2") +
-  geom_hline(yintercept=0, col = "grey40", size = .4) +
   theme_DataStache() +
   facet_wrap(. ~ county, nrow = 2) +
   theme(strip.text.x = element_text(face = "bold")) +
@@ -52,6 +52,7 @@ p_new_tests_percap_all <- covid_ct_counties %>%
 # NEW DEATHS
 p_new_deaths_percap_all <- covid_ct_counties %>%
   ggplot(aes(date, new_deaths_percap_07da)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_line(aes(col = county), size = .25) +
   xlab("Date") +
   ylab("New Deaths Per 100k") +
@@ -61,7 +62,6 @@ p_new_deaths_percap_all <- covid_ct_counties %>%
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   ylim(0, NA) +
   scale_color_brewer(palette = "Dark2") +
-  geom_hline(yintercept=0, col = "grey40", size = .4) +
   theme_DataStache() +
   facet_wrap(. ~ county, nrow = 2) +
   theme(strip.text.x = element_text(face = "bold")) +
@@ -77,6 +77,7 @@ p_new_deaths_percap_all <- covid_ct_counties %>%
 # HOSPITALIZATION
 p_hosp_percap_all <- covid_ct_counties %>%
   ggplot(aes(date, new_hosp_percap_07da)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_line(aes(col = county), size = .25) +
   xlab("Date") +
   ylab("New Deaths Per 100k") +
@@ -85,7 +86,6 @@ p_hosp_percap_all <- covid_ct_counties %>%
   labs(caption = "Created by Andrew F. Griffin\nCovid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_color_brewer(palette = "Dark2") +
-  geom_hline(yintercept=0, col = "grey40", size = .4) +
   theme_DataStache() +
   facet_wrap(. ~ county, nrow = 2) +
   theme(strip.text.x = element_text(face = "bold")) +

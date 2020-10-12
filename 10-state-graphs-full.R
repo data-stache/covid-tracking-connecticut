@@ -7,6 +7,9 @@ load("rda/theme_DataStache.rda")
 # NEW CASES
 p_new_case <- covid_ct %>%
   ggplot(aes(date, new_cases)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
+  # INSERT PHASE 3 REOPEN MARKER
+  geom_vline(xintercept = ymd(20201008), size = .15, color = "grey40") +
   geom_bar(stat = "identity", fill="blue", alpha = .3, size = .1) +
   scale_color_manual(values="light grey") +
   geom_line(aes(y = new_cases_07da), size = .25, col="blue") +
@@ -15,7 +18,6 @@ p_new_case <- covid_ct %>%
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_y_continuous(expand = c(0,0)) +
-  geom_hline(yintercept=0, col = "grey40", size = .4) +
   theme_DataStache() +
   theme(text = element_text(size = rel(.55)),
         axis.text = element_text(size = rel(.9)),
@@ -24,6 +26,7 @@ p_new_case <- covid_ct %>%
 # NEW TESTS        
 p_new_test <- covid_ct %>%
   ggplot(aes(date, new_tests)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_bar(stat = "identity", fill="dark green", alpha = .3, size = .1) +
   scale_color_manual(values="light grey") +
   geom_line(aes(y = new_tests_07da), size = .25, col="dark green") +
@@ -32,7 +35,6 @@ p_new_test <- covid_ct %>%
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_y_continuous(expand = c(0,0)) +
-  geom_hline(yintercept = 0, col = "grey40", size = .4) +
   theme_DataStache() +
   theme(text = element_text(size = rel(.55)),
         axis.text = element_text(size = rel(.9)),
@@ -41,6 +43,7 @@ p_new_test <- covid_ct %>%
 # NEW DEATHS
 p_new_deaths <- covid_ct %>%
   ggplot(aes(date, new_deaths)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_bar(stat = "identity", fill="dark red", alpha = .3, size = .1) +
   scale_color_manual(values="light grey") +
   geom_line(aes(y = new_deaths_07da), size = .25, col="dark red") +
@@ -49,7 +52,6 @@ p_new_deaths <- covid_ct %>%
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_y_continuous(expand = c(0,0)) +
-  geom_hline(yintercept=0, col = "grey40", size = .4) +
   theme_DataStache() +
   theme(text = element_text(size = rel(.55)),
         axis.text = element_text(size = rel(.9)),
@@ -58,14 +60,14 @@ p_new_deaths <- covid_ct %>%
 # HOSPITALIZATION
 p_hosp <- covid_ct %>%
   ggplot(aes(date, new_hosp)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_bar(stat = "identity", fill="yellow4", alpha = .3, size = .1) +
   scale_color_manual(values="light grey") +
   geom_line(aes(y = new_hosp_07da), size = .25, col="yellow4") +
-  ggtitle(paste("Connecticut Hospitalization"),
-          subtitle = "Currently Hospitalized Per Day With Rolling 7 Day Average") +
+  ggtitle(paste("Connecticut New Hospitalization"),
+          subtitle = "Newly Hospitalized Per Day With Rolling 7 Day Average") +
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
-  geom_hline(yintercept=0, col = "grey40", size = .4) +
   theme_DataStache() +
   theme(text = element_text(size = rel(.55)),
         axis.text = element_text(size = rel(.9)),

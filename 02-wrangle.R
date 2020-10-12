@@ -226,6 +226,13 @@ covid_ct_towns_sum <- covid_ct_towns %>%
   mutate(percent_pos = sum_new_cases / sum_new_tests) %>%
   mutate(rank = rank(-sum_new_cases)) %>%
   ungroup()
+
+# ADD COUNTY
+covid_ct_towns_county <- covid_ct_towns %>%
+  filter(date == ind_tdy) %>%
+  select(town, county)
+
+covid_ct_towns_sum <- merge(covid_ct_towns_sum, covid_ct_towns_county, by = "town")
 save(covid_ct_towns_sum, file = "rda/covid_ct_towns_sum.rda")
 
 # TOWN ORDER INDEX
