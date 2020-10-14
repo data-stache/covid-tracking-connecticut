@@ -1,14 +1,18 @@
 # LOAD DATA
 load("rda/covid_ct_counties_sum.rda")
+load("rda/covid_ct_counties_zone.rda")
 
 ### CT TABLE
-TBL_CT_County_7day <- covid_ct_counties_sum %>%
+TBL_CT_County_7day <- merge(covid_ct_counties_sum, covid_ct_counties_zone, by = c("county", "sum_cases_percap", "percent_pos")) %>%
   select(county,
          sum_cases_percap,
          sum_hosp_percap,
          sum_tests_percap,
          percent_pos,
-         sum_deaths_percap) %>%
+         sum_deaths_percap,
+         cases_zone,
+         percent_zone) %>%
+  arrange(desc(sum_cases_percap)) %>%
   gt() %>% 
   tab_options(table.font.size = pct(75)) %>%
   ## LABELS STUB / TITLE / SUBTITLE
@@ -20,7 +24,9 @@ TBL_CT_County_7day <- covid_ct_counties_sum %>%
              sum_hosp_percap = md("**New Hospitalization**"),
              sum_tests_percap = md("**New Tests**"),
              percent_pos = md("**Percent Positive**"),
-             sum_deaths_percap = md("**New Deaths**")) %>%
+             sum_deaths_percap = md("**New Deaths**"),
+             cases_zone = md("**Zone by Cases**"),
+             percent_zone = md("**Zone by Positives**")) %>%
   ## FORMATS DATA
   fmt_percent(columns = vars(percent_pos),
               decimals = 1) %>%

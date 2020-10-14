@@ -194,8 +194,8 @@ covid_ct_counties_sum <- covid_ct_counties %>%
   summarize(sum_cases_percap = sum(new_cases_percap),
             sum_tests_percap = sum(new_tests_percap),
             sum_deaths_percap = sum(new_deaths_percap),
-            sum_hosp_percap = sum(new_hosp_percap)) %>%
-  mutate(percent_pos = sum_cases_percap / sum_tests_percap) %>%
+            sum_hosp_percap = sum(new_hosp_percap),
+            percent_pos = mean(percent_pos)) %>%
   ungroup()
 save(covid_ct_counties_sum, file = "rda/covid_ct_counties_sum.rda")
 
@@ -218,21 +218,21 @@ save(ind_new_hosp_county, file = "rda/ind_new_hosp_county.rda")
 # PERCENT POS FUNCTION
 fct_positive_zone <- function(x) { 
   if(x < .05) {
-    print("green")
+    print("Green")
   } else if (x >= .05 & x < .1) {
-    print("yellow")
+    print("Yellow")
   } else if (x >= .1) {
-    print("red")
+    print("Red")
   }}
 
 # CASES FUNCTION
 fct_cases_zone <- function(x) { 
   if(x < 10) {
-    print("green")
+    print("Green")
   } else if (x >= 10 & x < 100) {
-    print("yellow")
+    print("Yellow")
   } else if (x >= 100) {
-    print("red")
+    print("Red")
   }}
 
 covid_ct_counties_zone <- covid_ct_counties %>%
