@@ -213,6 +213,38 @@ ind_new_hosp_county <- c(order(desc(covid_ct_counties_sum$sum_hosp_percap)))
 save(ind_new_hosp_county, file = "rda/ind_new_hosp_county.rda")
 
 
+##### COUNTY GREEN / YELLOW / RED ZONE ####
+# ZONE FUNCTION
+# PERCENT POS FUNCTION
+fct_positive_zone <- function(x) { 
+  if(x < .05) {
+    print("green")
+  } else if (x >= .05 & x < .1) {
+    print("yellow")
+  } else if (x >= .1) {
+    print("red")
+  }}
+
+# CASES FUNCTION
+fct_cases_zone <- function(x) { 
+  if(x < 10) {
+    print("green")
+  } else if (x >= 10 & x < 100) {
+    print("yellow")
+  } else if (x >= 100) {
+    print("red")
+  }}
+
+covid_ct_counties_zone <- covid_ct_counties %>%
+  filter(date >= ind_wk) %>%
+  group_by(county) %>%
+  summarize(sum_cases_percap = sum(new_cases_percap),
+            percent_pos = mean(percent_pos, na.rm = TRUE),
+            cases_zone = fct_cases_zone(sum_cases_percap),
+            percent_zone = fct_positive_zone(percent_pos)) %>%
+  ungroup()
+save(covid_ct_counties_zone, file = "rda/covid_ct_counties_zone.rda")
+
 ##### SUMMARISE NEW CASES, TESTS, AND DEATHS BY TOWN ##### 
 covid_ct_towns_sum <- covid_ct_towns %>% 
   # FILTER LAST 7 DAYS
