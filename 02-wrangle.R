@@ -314,7 +314,7 @@ covid_ct_sum <- covid_ct %>%
   ungroup()
 save(covid_ct_sum, file = "rda/covid_ct_sum.rda")
 
-town_growth_top10 <- head(covid_ct_towns_sum[ind_new_case_town,],10)
+town_growth_top10 <- head(covid_ct_towns_sum[ind_new_case_town,],17)
 save(town_growth_top10, file = "rda/town_growth_top10.rda")
 
 county_growth_ord <- head(covid_ct_counties_sum[ind_new_case_county,],8)
