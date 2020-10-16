@@ -160,19 +160,19 @@ save(covid_ct_towns, file = "rda/covid_ct_towns.rda")
 ind_tdy <- covid_ct_counties$date[1] # TODAY
 save(ind_tdy, file = "rda/ind_tdy.rda")
 
-ind_tylm_date <- c(ind_tdy, ind_tdy - 1, ind_tdy - 6, ind_tdy - 27) # PULL DATES OF T/Y/LW/LM
+ind_tylm_date <- c(ind_tdy, ind_tdy - 1, ind_tdy - 7, ind_tdy - 28) # PULL DATES OF T/Y/LW/LM
 save(ind_tylm_date, file = "rda/ind_tylm_date.rda")
 
-ind_mnth <- ind_tdy - 27 # 4 WEEKS AGO
+ind_mnth <- ind_tdy - 28 # 4 WEEKS AGO
 save(ind_mnth, file = "rda/ind_mnth.rda")
 
-ind_days_90 <- ind_tdy - 89 # 90 DAYS AGO
+ind_days_90 <- ind_tdy - 90 # 90 DAYS AGO
 save(ind_days_90, file = "rda/ind_days_90.rda")
 
-ind_wk <- ind_tdy - 6 # 7 DAYS AGO
+ind_wk <- ind_tdy - 7 # 7 DAYS AGO
 save(ind_wk, file = "rda/ind_wk.rda")
 
-ind_2wk <- ind_tdy - 13 # 7 DAYS AGO
+ind_2wk <- ind_tdy - 14 # 7 DAYS AGO
 save(ind_2wk, file = "rda/ind_2wk.rda")
 
 ind_yale_rtrn <- ymd(20200824) # DATE YALE UNDERGRADS BEGIN TO RETURN
