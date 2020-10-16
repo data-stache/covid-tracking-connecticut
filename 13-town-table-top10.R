@@ -13,7 +13,7 @@ TBL_CT_Town_7day <- town_growth_top10 %>%
   gt() %>% 
   ## LABELS STUB / TITLE / SUBTITLE
   tab_options(table.font.size = pct(75)) %>%
-  tab_header(title = md("**TOP 10 TOWNS FOR COVID GROWTH IN CONNECTICUT**"),
+  tab_header(title = md("**TOP 10% OF TOWNS FOR COVID GROWTH IN CONNECTICUT**"),
              subtitle = md("*Based on Total Cases Over the Last Seven Days*")) %>%
   ## RENAMES COLUMNS
   cols_label(town = md("**Town**"),

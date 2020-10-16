@@ -5,6 +5,10 @@ load("rda/covid_ct.rda")
 covid_ct %>%
   filter(new_cases >= covid_ct$new_cases[1]) %>% select(date, new_cases)
 
+# 7 DAY AVG CASES THIS HIGH
+covid_ct %>%
+  filter(new_cases_07da >= covid_ct$new_cases_07da[1]) %>% select(date, new_cases_07da)
+
 # DAILY DEATHS THIS HIGH
 covid_ct %>%
   filter(new_deaths >= covid_ct$new_deaths[1]) %>% select(date, new_deaths)
@@ -20,6 +24,10 @@ covid_ct %>%
 # NEW HOSP THIS HIGH
 covid_ct %>%
   filter(new_hosp >= covid_ct$new_hosp[1]) %>% select(date, new_hosp)
+
+# 7 DAY AVG NEW HOSP THIS HIGH
+covid_ct %>%
+  filter(new_hosp_07da >= covid_ct$new_hosp_07da[1]) %>% select(date, new_hosp_07da)
 
 # % POSITIVE ABOVE ##
 p <- .04
