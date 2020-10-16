@@ -68,6 +68,7 @@ p_hosp <- covid_ct %>%
           subtitle = "Newly Hospitalized Per Day With Rolling 7 Day Average") +
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
+  coord_cartesian(ylim = c(-60,150)) +
   theme_DataStache() +
   theme(text = element_text(size = rel(.55)),
         axis.text = element_text(size = rel(.9)),
