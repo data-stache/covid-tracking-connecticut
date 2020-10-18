@@ -44,6 +44,11 @@ covid_ct_towns <- covid_ct %>%
 covid_ct_towns <- covid_ct_towns %>%
   arrange(desc(date))
 
+# ADD DAY OF THE WEEK
+covid_ct_towns <- covid_ct_towns %>%
+  mutate(day = weekdays(date))
+
+
 
 ##### BUILD DATA SET FOR COUNTIES ##### 
 # SELECT RELEVANT COLUMNS
@@ -60,6 +65,7 @@ covid_ct_counties <- covid_ct_counties %>%
   summarise(new_cases = sum(new_cases), 
             new_tests = sum(new_tests),
             new_deaths = sum(new_deaths)) %>%
+  mutate(day = weekdays(date)) %>%
   ungroup()
 
 ### MERGE HOSPITALIZATION
@@ -105,7 +111,7 @@ covid_ct_counties <- covid_ct_counties %>%
   ungroup()
 
 # COUNTY COLUMN ORDER
-col_order <- c("date", "county", "population", "new_cases", "new_tests", "new_deaths", "new_hosp", "hospitalization", "new_cases_percap", "new_tests_percap",
+col_order <- c("date", "day", "county", "population", "new_cases", "new_tests", "new_deaths", "new_hosp", "hospitalization", "new_cases_percap", "new_tests_percap",
                "new_deaths_percap", "new_hosp_percap", "new_cases_07da", "new_tests_07da", "new_deaths_07da", "new_hosp_07da", "new_cases_percap_07da", "new_tests_percap_07da", 
                "new_deaths_percap_07da", "new_hosp_percap_07da", "percent_pos")
 
@@ -125,7 +131,7 @@ covid_ct_towns <- covid_ct_towns %>%
 
 # SELECT RELEVANT COLUMNS
 covid_ct_towns <- covid_ct_towns %>% 
-  select(date, town, county, new_cases, new_tests, new_deaths)
+  select(date, day, town, county, new_cases, new_tests, new_deaths)
 
 # ADD PERCENT SHARE POSITIVE
 covid_ct_towns <- covid_ct_towns %>%
@@ -144,7 +150,7 @@ covid_ct_towns <- covid_ct_towns %>%
   ungroup()
 
 # COLUMN ORDER
-col_order_2 <- c("date", "town", "county", "new_cases", "new_tests", "new_deaths", "new_cases_07da", "new_tests_07da", "new_deaths_07da", "percent_pos")
+col_order_2 <- c("date", "day", "town", "county", "new_cases", "new_tests", "new_deaths", "new_cases_07da", "new_tests_07da", "new_deaths_07da", "percent_pos")
 
 # REORDER COLUMNS
 covid_ct_towns <- covid_ct_towns[,col_order_2]
