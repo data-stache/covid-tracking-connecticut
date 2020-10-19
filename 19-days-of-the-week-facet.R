@@ -3,7 +3,6 @@ load("rda/covid_ct.rda")
 load("rda/theme_DataStache.rda")
 head(covid_ct)
 
-Day <- "Sunday"
 covid_ct %>%
   mutate(week = epiweek(date),
          day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 

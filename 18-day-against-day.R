@@ -131,3 +131,23 @@ ggsave("figs/Day of Week Compare.png",
        height = p_height,
        dpi = "retina")
 
+##### SUNDAY VS THURSDAY #####
+
+covid_ct %>%
+  select(date, day, new_cases_07da)
+
+covid_ct %>%
+  filter(date >= ymd(20200801)) %>%
+  mutate(week = epiweek(date),
+         day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 
+  group_by(week) %>%
+  slice(c(1,n())) %>%
+  select(date, day, week, new_cases_07da) %>%
+  ungroup() %>%
+  spread(day, new_cases_07da) %>%
+  group_by(week) %>%
+  summarise(sun = sum(Sunday, na.rm = TRUE),
+            thurs = sum(Thursday, na.rm = TRUE),
+            decrease = ((thurs - sun) / sun) * 100)
+
+summarize(new = new_cases_07da[day == "Sunday"] / new_cases_07da[day == "Thursday"])
