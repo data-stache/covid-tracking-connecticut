@@ -193,7 +193,7 @@ save(ind_xlim_3m, file = "rda/ind_xlim_3m.rda")
 ##### SUMMARISE NEW CASES, TESTS, HOSPITALIZATION, AND DEATHS BY COUNTY ##### 
 covid_ct_counties_sum <- covid_ct_counties %>%
   # FILTER LAST 7 DAYS
-  filter(date >= ind_wk) %>%
+  filter(date > ind_wk) %>%
   # GROUP BY COUNTY
   group_by(county) %>%
   # SUMMARIZE NEW CASES
@@ -242,7 +242,7 @@ fct_cases_zone <- function(x) {
   }}
 
 covid_ct_counties_zone <- covid_ct_counties %>%
-  filter(date >= ind_wk) %>%
+  filter(date > ind_wk) %>%
   group_by(county) %>%
   summarize(sum_cases_percap = sum(new_cases_percap),
             percent_pos = mean(percent_pos, na.rm = TRUE),
@@ -254,7 +254,7 @@ save(covid_ct_counties_zone, file = "rda/covid_ct_counties_zone.rda")
 ##### SUMMARISE NEW CASES, TESTS, AND DEATHS BY TOWN ##### 
 covid_ct_towns_sum <- covid_ct_towns %>% 
   # FILTER LAST 7 DAYS
-  filter(date >= ind_wk) %>% 
+  filter(date > ind_wk) %>% 
   # GROUP BY TOWN
   group_by(town) %>%
   # SUMMARIZE NEW CASES
@@ -306,9 +306,9 @@ save(covid_ct, file = "rda/covid_ct.rda")
 ##### SUMMARISE NEW CASES, TESTS, AND DEATHS BY STATE ##### 
 covid_ct_sum <- covid_ct %>% 
   # FILTER LAST 7 DAYS
-  filter(date >= ind_2wk) %>%
+  filter(date > ind_2wk) %>%
   # 1wk 2wk
-  mutate(week = ifelse(date >= ind_wk, "Last 7 Days", "Last Week")) %>%
+  mutate(week = ifelse(date > ind_wk, "Last 7 Days", "Last Week")) %>%
   # GROUP BY WEEK
   group_by(week) %>%
   # SUMMARIZE NEW CASES
