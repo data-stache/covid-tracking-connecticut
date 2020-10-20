@@ -301,6 +301,7 @@ covid_ct <- covid_ct_counties %>%
          new_hosp_07da = rollapply(new_hosp, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="right"),
          day = weekdays(date)) %>%
   arrange(desc(date))
+covid_ct <- covid_ct[c(1, 13, 2:12)]
 save(covid_ct, file = "rda/covid_ct.rda")
 
 ##### SUMMARISE NEW CASES, TESTS, AND DEATHS BY STATE ##### 
