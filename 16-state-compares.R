@@ -30,6 +30,6 @@ covid_ct %>%
   filter(new_hosp_07da >= covid_ct$new_hosp_07da[1]) %>% select(date, new_hosp_07da)
 
 # % POSITIVE ABOVE ##
-p <- .04
+p <- .02
 covid_ct %>%
-  filter(percent_pos >= p) %>% select(date, percent_pos)
+  filter(percent_pos_07da >= p) %>% select(date, percent_pos_07da)

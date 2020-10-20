@@ -296,12 +296,13 @@ covid_ct <- covid_ct_counties %>%
   ungroup() %>%
   mutate(new_cases_07da = rollapply(new_cases, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="right"),
          new_tests_07da = rollapply(new_tests, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="right"),
+         percent_pos_07da = rollapply(percent_pos, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="right"),
          new_deaths_07da = rollapply(new_deaths, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="right"),
          cur_hosp_07da = rollapply(current_hosp, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="right"),
          new_hosp_07da = rollapply(new_hosp, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="right"),
          day = weekdays(date)) %>%
   arrange(desc(date))
-covid_ct <- covid_ct[c(1, 13, 2:12)]
+covid_ct <- covid_ct[c(1, 14, 2:13)]
 save(covid_ct, file = "rda/covid_ct.rda")
 
 ##### SUMMARISE NEW CASES, TESTS, AND DEATHS BY STATE ##### 

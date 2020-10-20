@@ -10,7 +10,7 @@ covid_ct %>%
          day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 
   group_by(week) %>%
   mutate(weeks = max(date)) %>%
-  filter(date >= ymd(20200901)) %>%
+  filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = new_cases, group = weeks)) +
   geom_col(aes(fill = factor(weeks)), position = "dodge") +
   scale_fill_brewer(palette = "Dark2") +
@@ -24,7 +24,7 @@ covid_ct %>%
          day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 
   group_by(week) %>%
   mutate(weeks = max(date)) %>%
-  filter(date >= ymd(20200901)) %>%
+  filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = new_cases, group = weeks)) +
   geom_hline(yintercept = 0, size = .2, color = "grey40") +
   geom_col(aes(fill = factor(weeks)), position = "dodge") +
@@ -40,15 +40,25 @@ covid_ct %>%
 # Box Plot of New Cases Day of Week over Time
 covid_ct %>%
   mutate(week = epiweek(date),
-         day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 
+         day = factor(day, levels = c("Thursday", "Wednesday", "Tuesday", "Monday", "Sunday"))) %>% 
   group_by(week) %>%
   mutate(weeks = min(date)) %>%
-  filter(date >= ymd(20200901)) %>%
+  filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = new_cases)) +
-  geom_boxplot() +
-  geom_point() +
-  ggtitle("Connecticut New Cases Box Plot") +
-  theme_DataStache()
+  geom_boxplot(fill = "light blue", size = .25, outlier.shape = NA) +
+  geom_point(color = "Dark blue", size = .5) +
+  ggtitle("Does Day Of The Week Impact New Case Count?",
+          subtitle = "Daily New Cases Reported Sunday - Thursday Since Connecticut Stopped Weekend Reporting") +
+  theme_DataStache() +
+  coord_flip()
+
+p_width <- 6
+p_height <- (9/16) * p_width
+
+ggsave("figs/Connecticut New Report Box Plot.png",
+       width = p_width,
+       height = p_height,
+       dpi = "retina")
 
 # Box Plot of New Deaths Day of Week over Time
 covid_ct %>%
@@ -56,7 +66,7 @@ covid_ct %>%
          day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 
   group_by(week) %>%
   mutate(weeks = min(date)) %>%
-  filter(date >= ymd(20200901)) %>%
+  filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = new_deaths)) +
   geom_boxplot() +
   geom_point() +
@@ -69,7 +79,7 @@ covid_ct %>%
          day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 
   group_by(week) %>%
   mutate(weeks = min(date)) %>%
-  filter(date >= ymd(20200901)) %>%
+  filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = new_hosp)) +
   geom_boxplot() +
   geom_point() +
@@ -82,7 +92,7 @@ covid_ct %>%
          day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 
   group_by(week) %>%
   mutate(weeks = min(date)) %>%
-  filter(date >= ymd(20200901)) %>%
+  filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = new_tests)) +
   geom_boxplot() +
   geom_point() +
@@ -95,7 +105,7 @@ covid_ct %>%
          day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 
   group_by(week) %>%
   mutate(weeks = min(date)) %>%
-  filter(date >= ymd(20200901)) %>%
+  filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = percent_pos)) +
   geom_boxplot() +
   geom_point() +
@@ -104,6 +114,18 @@ covid_ct %>%
 
 
 ##### DAY AGAINST DAY #####
+# PERCENTAGE OF CASES REPORTED ON WHAT DAYS OF THE WEEK
+covid_ct %>%
+  mutate(week = epiweek(date),
+         day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 
+  group_by(week) %>%
+  mutate(weeks = max(date)) %>%
+  filter(date >= ymd(20200701)) %>%
+  ungroup() %>%
+  group_by(day) %>%
+  summarise(case_sum = sum(new_cases)) %>%
+  mutate(per_case = case_sum / sum(case_sum))
+
 # New Cases Compared to this Day of the week
 Day <- covid_ct$day[1]
 # !! OR  !!
@@ -130,24 +152,3 @@ ggsave("figs/Day of Week Compare.png",
        width = p_width,
        height = p_height,
        dpi = "retina")
-
-##### SUNDAY VS THURSDAY #####
-
-covid_ct %>%
-  select(date, day, new_cases_07da)
-
-covid_ct %>%
-  filter(date >= ymd(20200801)) %>%
-  mutate(week = epiweek(date),
-         day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 
-  group_by(week) %>%
-  slice(c(1,n())) %>%
-  select(date, day, week, new_cases_07da) %>%
-  ungroup() %>%
-  spread(day, new_cases_07da) %>%
-  group_by(week) %>%
-  summarise(sun = sum(Sunday, na.rm = TRUE),
-            thurs = sum(Thursday, na.rm = TRUE),
-            decrease = ((thurs - sun) / sun) * 100)
-
-summarize(new = new_cases_07da[day == "Sunday"] / new_cases_07da[day == "Thursday"])
