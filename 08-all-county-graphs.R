@@ -80,7 +80,7 @@ p_new_deaths_percap_all <- covid_ct_counties %>%
                                   fill = alpha("white", .3),
                                   segment.size = 0))
 
-# HOSPITALIZATION
+# NEW HOSPITALIZATION
 p_hosp_percap_all <- covid_ct_counties %>%
   ggplot(aes(date, new_hosp_percap_07da)) +
   geom_hline(yintercept=0, col = "grey40", size = .2) +
@@ -106,6 +106,7 @@ p_hosp_percap_all <- covid_ct_counties %>%
                                   fill = alpha("white", .3),
                                   segment.size = 0))
 
+# CURRENT HOSPITALIZATION
 p_hosp_current <- covid_ct_counties %>%
   ggplot(aes(date, hospitalization)) +
   geom_hline(yintercept=0, col = "grey40", size = .2) +
