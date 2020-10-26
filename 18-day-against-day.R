@@ -119,3 +119,13 @@ ggsave("figs/Day of Week Compare.png",
        width = p_width,
        height = p_height,
        dpi = "retina")
+
+ct_total_infected
+
+covid_ct %>%
+  filter(date >= ymd(20200701)) %>%
+  mutate(day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>%
+  group_by(day) %>%
+  summarize(cases_tot = sum(new_cases),
+            cases_per = sum(new_cases) / sum(.$new_cases))
+            

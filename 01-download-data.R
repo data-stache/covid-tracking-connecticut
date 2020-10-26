@@ -13,4 +13,3 @@ file_b <- read.socrata(url)
 write.csv(file_b, dest_file, row.names = FALSE)
 
 
-
