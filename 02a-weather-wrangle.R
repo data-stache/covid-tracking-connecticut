@@ -5,7 +5,7 @@ weather <- read.csv("data/ct_weather.csv")
 
 names(weather)
 
-weather <- weather %>%
+ct_weather <- weather %>%
   rename(station = STATION,
          name = NAME,
          date = DATE,
