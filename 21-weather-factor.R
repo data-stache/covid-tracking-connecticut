@@ -1,11 +1,14 @@
+library(broom)
+library(tidyverse)
 load("rda/covid_ct.rda")
 load("rda/weather.rda")
 
 dat <- covid_ct %>%
-  inner_join(weather)
+  inner_join(ct_weather)
 
-##### WHOLE PANDEMIC #####
+##### SINCE APRIL PANDEMIC #####
 P1 <- dat %>%
+  filter(date >= ymd(20200401)) %>%
   ggplot(aes(x = avg_T_07da, y = new_cases_07da)) +
   geom_point(size = 1, alpha = .5) +
   geom_smooth()
@@ -16,7 +19,9 @@ dat %>%
   geom_point(size = 1, alpha = .5) +
   facet_wrap(. ~ month(date))
 
-model <- lm(new_cases_07da ~ avg_T_07da, data = dat)
+model <- dat %>%
+  filter(date >= ymd(20200401)) %>%
+  lm(new_cases_07da ~ avg_T_07da, data = .)
 model
 
 coefs <- tidy(model, conf.int = TRUE)
@@ -27,26 +32,4 @@ new_temps <- data.frame(avg_T_07da = seq(20,60,5))
 predict(model, newdata = new_temps)
 
 
-##### SINCE JULY #####
-P2 <- dat %>%
-  filter(date >= ymd(20200701)) %>%
-  ggplot(aes(x = avg_T_07da, y = new_cases_07da)) +
-  geom_point(size = 1, alpha = .5) +
-  geom_smooth()
-P2
 
-dat %>%
-  filter(date >= ymd(20200701)) %>%
-  summarize(cor = cor(new_cases_07da, avg_T_07da))
-
-model_jul <- dat %>%
-  filter(date >= ymd(20200701)) %>%
-  lm(new_cases_07da ~ avg_T_07da, data = .)
-model_jul
-
-coefs_jul <- tidy(model_jul, conf.int = TRUE)
-coefs_jul
-
-new_temps <- data.frame(avg_T_07da = seq(20,60,5))
-
-predict(model_jul, newdata = new_temps)
