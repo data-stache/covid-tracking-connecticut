@@ -7,6 +7,9 @@ load("rda/ct_weather.rda")
 dat <- covid_ct %>%
   inner_join(ct_weather)
 
+# MAX DATE?
+max(dat$date)
+
 ##### SINCE APRIL PANDEMIC #####
 P1 <- dat %>%
   filter(date >= ymd(20200401)) %>%
