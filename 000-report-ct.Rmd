@@ -1,0 +1,339 @@
+---
+title: "Daily Connecticut Covid Report"
+author: "Andrew F. Griffin"
+date: "10/29/2020"
+output: html_document
+---
+
+```{r US GRAPH, echo=FALSE, message=FALSE, warning=FALSE}
+library(dslabs)
+library(tidyverse)
+library(dplyr)
+library(zoo)
+library(lubridate)
+library(janitor)
+
+library(ggplot2)
+library(gghighlight)
+library(ggrepel)
+library(ggthemes)
+library(RColorBrewer)
+library(viridis)
+library(paletteer)
+library(usmap)
+library(grid)
+library(gridExtra)
+
+library(gt)
+library(markdown)
+library(pracma)
+# LOAD DATA
+load("rda/covid_ct.rda")
+load("rda/theme_DataStache.rda")
+
+##### PLOT CHARTS
+# NEW CASES
+p_new_case <- covid_ct %>%
+  ggplot(aes(date, new_cases)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
+  # INSERT PHASE 3 REOPEN MARKER
+  geom_vline(xintercept = ymd(20201008), size = .15, color = "grey40") +
+  geom_bar(stat = "identity", fill="blue", alpha = .3, size = .1) +
+  scale_color_manual(values="light grey") +
+  geom_line(aes(y = new_cases_07da), size = .25, col="blue") +
+  ggtitle("Connecticut New Cases Total",
+          subtitle = "New Cases Per Day With Rolling 7 Day Average") +
+  labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
+  scale_x_date(date_labels = "%b", breaks= "1 month") +
+  scale_y_continuous(expand = c(0,0)) +
+  coord_cartesian(ylim = c(0, max(covid_ct$new_cases_07da, na.rm = TRUE) * 1.1)) +
+  theme_DataStache() +
+  theme(text = element_text(size = rel(.55)),
+        axis.text = element_text(size = rel(.65)),
+        plot.caption = element_text(size = rel(.5)))
+
+# NEW TESTS        
+p_new_test <- covid_ct %>%
+  ggplot(aes(date, new_tests)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
+  geom_bar(stat = "identity", fill="dark green", alpha = .3, size = .1) +
+  scale_color_manual(values="light grey") +
+  geom_line(aes(y = new_tests_07da), size = .25, col="dark green") +
+  ggtitle("Connecticut New Tests Total",
+          subtitle = "Tests Per Day With Rolling 7 Day Average") +
+  labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
+  scale_x_date(date_labels = "%b", breaks= "1 month") +
+  scale_y_continuous(expand = c(0,0)) +
+  coord_cartesian(ylim = c(0, max(covid_ct$new_tests_07da, na.rm = TRUE) * 1.1)) +
+  theme_DataStache() +
+  theme(text = element_text(size = rel(.55)),
+        axis.text = element_text(size = rel(.65)),
+        plot.caption = element_text(size = rel(.5)))
+
+# NEW DEATHS
+p_new_deaths <- covid_ct %>%
+  ggplot(aes(date, new_deaths)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
+  geom_bar(stat = "identity", fill="dark red", alpha = .3, size = .1) +
+  scale_color_manual(values="light grey") +
+  geom_line(aes(y = new_deaths_07da), size = .25, col="dark red") +
+  ggtitle("Connecticut New Deaths Total",
+          subtitle = "Deaths Per Day With Rolling 7 Day Average") +
+  labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
+  scale_x_date(date_labels = "%b", breaks= "1 month") +
+  scale_y_continuous(expand = c(0,0)) +
+  coord_cartesian(ylim = c(0, max(covid_ct$new_deaths_07da, na.rm = TRUE) * 1.1)) +
+  theme_DataStache() +
+  theme(text = element_text(size = rel(.55)),
+        axis.text = element_text(size = rel(.65)),
+        plot.caption = element_text(size = rel(.5)))
+
+# NEW HOSPITALIZATION
+p_new_hosp <- covid_ct %>%
+  ggplot(aes(date, new_hosp)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
+  geom_bar(stat = "identity", fill="yellow4", alpha = .3, size = .1) +
+  scale_color_manual(values="light grey") +
+  geom_line(aes(y = new_hosp_07da), size = .25, col="yellow4") +
+  ggtitle(paste("Connecticut New Hospitalization"),
+          subtitle = "Newly Hospitalized Per Day With Rolling 7 Day Average") +
+  labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
+  scale_x_date(date_labels = "%b", breaks= "1 month") +
+  scale_y_continuous(expand = c(0,0)) +
+  coord_cartesian(ylim = c(min(covid_ct$new_hosp_07da, na.rm = TRUE) * 1.1, max(covid_ct$new_hosp_07da, na.rm = TRUE) * 1.1)) +
+  theme_DataStache() +
+  theme(text = element_text(size = rel(.55)),
+        axis.text = element_text(size = rel(.65)),
+        plot.caption = element_text(size = rel(.5)))
+
+# CURRENT HOSPITALIZATION
+p_hosp <- covid_ct %>%
+  ggplot(aes(date, current_hosp)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
+  geom_bar(stat = "identity", fill="orange4", alpha = .3, size = .1) +
+  scale_color_manual(values="light grey") +
+  geom_line(aes(y = cur_hosp_07da), size = .25, col="orange4") +
+  ggtitle(paste("Connecticut New Hospitalization"),
+          subtitle = "Currently Hospitalized With Rolling 7 Day Average") +
+  labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
+  scale_x_date(date_labels = "%b", breaks= "1 month") +
+  scale_y_continuous(expand = c(0,0)) +
+  coord_cartesian(ylim = c(0, max(covid_ct$cur_hosp_07da, na.rm = TRUE) * 1.1)) +
+  theme_DataStache() +
+  theme(text = element_text(size = rel(.55)),
+        axis.text = element_text(size = rel(.65)),
+        plot.caption = element_text(size = rel(.5)))
+
+# PERCENT POSITIVE
+p_pos <- covid_ct %>%
+  ggplot(aes(date, percent_pos)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
+  geom_bar(stat = "identity", fill="orange4", alpha = .3, size = .1) +
+  scale_color_manual(values="light grey") +
+  geom_line(aes(y = percent_pos_07da), size = .25, col="orange4") +
+  ggtitle(paste("Connecticut Percent Positive"),
+          subtitle = "Percent Share Positive With Rolling 7 Day Average") +
+  labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
+  scale_x_date(date_labels = "%b", breaks= "1 month") +
+  scale_y_continuous(expand = c(0,0)) + 
+  coord_cartesian(ylim = c(0, max(covid_ct$percent_pos_07da, na.rm = TRUE) * 1.1)) +
+  theme_DataStache() +
+  theme(text = element_text(size = rel(.55)),
+        axis.text = element_text(size = rel(.65)),
+        plot.caption = element_text(size = rel(.5)))
+
+# GRID ARRANGE PLOTS
+grid.arrange(p_new_case, p_new_test, p_hosp, p_new_deaths, p_pos, p_new_hosp, nrow = 2)
+```
+<br></br>
+<br></br>
+```{r STATE SUMMARY TABLE, echo=FALSE, message=FALSE, warning=FALSE}
+# LOAD DATA
+load("rda/covid_ct.rda")
+load("rda/ind_tylm_date.rda")
+
+### CT TABLE
+covid_ct %>%
+  filter(date %in% ind_tylm_date) %>%
+  select(date, new_cases, new_tests, new_deaths, current_hosp, new_hosp, percent_pos) %>%
+  gt() %>% 
+  tab_options(table.font.size = pct(75)) %>%
+  ## LABELS STUB / TITLE / SUBTITLE
+  tab_header(title = md("**COVID GROWTH IN CONNECTICUT**"),
+             subtitle = md("*Today / Yesterday / Last Week / Last Month*")) %>%
+  ## RENAMES COLUMNS
+  cols_label(date = md("**Date**"), 
+             new_cases = md("**New Cases**"),
+             new_tests = md("**New Tests**"),
+             new_deaths = md("**New Deaths**"),
+             current_hosp = md("**Currently Hospitalized**"),
+             new_hosp = md("**Newly Hospitalized**"),
+             percent_pos = md("**Percent Positive**")) %>%
+  ## FORMATS DATA
+  fmt_percent(columns = vars(percent_pos),
+              decimals = 1) %>%
+  cols_align(align = "center") %>%
+  fmt_number(columns =  vars(new_cases,
+                             new_tests,
+                             new_deaths),
+             decimals = 0) %>%
+  ## BOLD STATES COLUMN
+  tab_style(style = list(cell_text(weight = "bold")),
+            locations = cells_body(columns = vars(date))) %>%   
+  ## STRIPING
+  opt_row_striping(row_striping = TRUE) %>%
+  tab_source_note(source_note = md("*Created by Andrew F. Griffin, Covid Data from data.ct.gov*"))
+```
+<br></br>
+The Last Time Things were this bad:
+```{r CASES, echo=FALSE, message=FALSE, warning=FALSE}
+covid_ct %>%
+  filter(new_cases >= covid_ct$new_cases[1]) %>% select(date, new_cases)
+```
+
+```{r CASES 07DA, echo=FALSE, message=FALSE, warning=FALSE}
+covid_ct %>%
+  filter(new_cases_07da >= covid_ct$new_cases_07da[1]) %>% select(date, new_cases_07da)
+```
+
+```{r DEATH, echo=FALSE, message=FALSE, warning=FALSE}
+covid_ct %>%
+  filter(new_deaths >= covid_ct$new_deaths[1]) %>% select(date, new_deaths)
+```
+
+```{r DEATH 07DA, echo=FALSE, message=FALSE, warning=FALSE}
+covid_ct %>%
+  filter(new_deaths_07da >= covid_ct$new_deaths_07da[1]) %>% select(date, new_deaths_07da)
+```
+
+```{r HOSP, echo=FALSE, message=FALSE, warning=FALSE}
+covid_ct %>%
+  filter(current_hosp >= covid_ct$current_hosp[1]) %>% select(date, current_hosp)
+```
+
+```{r NEW HOSP 07DA, echo=FALSE, message=FALSE, warning=FALSE}
+covid_ct %>%
+  filter(new_hosp_07da >= covid_ct$new_hosp_07da[1]) %>% select(date, new_hosp_07da)
+```
+
+```{r STATE GROWTH TABLE, echo=FALSE, message=FALSE, warning=FALSE}
+# LOAD DATA
+load("rda/covid_ct_sum.rda")
+
+### CT TABLE
+covid_ct_sum %>%
+  gt() %>% 
+  tab_options(table.font.size = pct(75)) %>%
+  ## LABELS STUB / TITLE / SUBTITLE
+  tab_header(title = md("**COVID GROWTH IN CONNECTICUT**"),
+             subtitle = md("*Last Seven Days Compared to Last Week*")) %>%
+  ## RENAMES COLUMNS
+  cols_label(week = md("**Period**"), 
+             sum_new_cases = md("**New Cases**"),
+             sum_new_tests = md("**New Tests**"),
+             sum_new_deaths = md("**New Deaths**"),
+             m_hosp = md("**Avg Hospitalized**"),
+             sum_new_hosp = md("**New Hospitalizations**"),
+             percent_pos = md("**Percent Positive**")) %>%
+  ## FORMATS DATA
+  fmt_percent(columns = vars(percent_pos),
+              decimals = 1) %>%
+  cols_align(align = "center") %>%
+  fmt_number(columns =  vars(sum_new_cases,
+                             sum_new_tests,
+                             sum_new_deaths),
+             decimals = 0) %>%
+  ## BOLD STATES COLUMN
+  tab_style(style = list(cell_text(weight = "bold")),
+            locations = cells_body(columns = vars(week))) %>%   
+  ## STRIPING
+  opt_row_striping(row_striping = TRUE) %>%
+  tab_source_note(source_note = md("*Created by Andrew F. Griffin, Covid Data from data.ct.gov*"))
+```
+<br></br>
+```{r COUNTY SUMMARY TABLE, echo=FALSE, message=FALSE, warning=FALSE}
+# LOAD DATA
+load("rda/covid_ct_counties_sum.rda")
+load("rda/covid_ct_counties_zone.rda")
+
+### CT TABLE
+merge(covid_ct_counties_sum, covid_ct_counties_zone, by = c("county", "sum_cases_percap", "percent_pos")) %>%
+  select(county,
+         sum_cases_percap,
+         sum_hosp_percap,
+         sum_tests_percap,
+         percent_pos,
+         sum_deaths_percap,
+         cases_zone,
+         percent_zone) %>%
+  arrange(desc(sum_cases_percap)) %>%
+  gt() %>% 
+  tab_options(table.font.size = pct(75)) %>%
+  ## LABELS STUB / TITLE / SUBTITLE
+  tab_header(title = md("**COVID GROWTH BY COUNTY IN CONNECTICUT**"),
+             subtitle = md("*Based on Total Cases Per 100k Over the Last Seven Days*")) %>%
+  ## RENAMES COLUMNS
+  cols_label(county = md("**County**"), 
+             sum_cases_percap = md("**New Cases**"),
+             sum_hosp_percap = md("**New Hospitalization**"),
+             sum_tests_percap = md("**New Tests**"),
+             percent_pos = md("**Percent Positive**"),
+             sum_deaths_percap = md("**New Deaths**"),
+             cases_zone = md("**Zone by Cases**"),
+             percent_zone = md("**Zone by Positives**")) %>%
+  ## FORMATS DATA
+  fmt_percent(columns = vars(percent_pos),
+              decimals = 1) %>%
+  cols_align(align = "center") %>%
+  fmt_number(columns =  vars(sum_cases_percap,
+                             sum_tests_percap,
+                             sum_deaths_percap),
+             decimals = 0) %>%
+  ## BOLD STATES COLUMN
+  tab_style(style = list(cell_text(weight = "bold")),
+            locations = cells_body(columns = vars(county))) %>%   
+  ## STRIPING
+  opt_row_striping(row_striping = TRUE) %>%
+  tab_source_note(source_note = md("*Created by Andrew F. Griffin, Covid Data from data.ct.gov*"))
+```
+<br></br>
+```{r TOWN SUMMARY TABLE, echo=FALSE, message=FALSE, warning=FALSE}
+# LOAD DATA
+load("rda/town_growth_top10.rda")
+
+
+### CT TOWNS TABLE
+town_growth_top10 %>%
+  select(town,
+         county,
+         sum_new_cases,
+         sum_new_tests,
+         percent_pos,
+         sum_new_deaths) %>%
+  gt() %>% 
+  ## LABELS STUB / TITLE / SUBTITLE
+  tab_options(table.font.size = pct(75)) %>%
+  tab_header(title = md("**TOP 10% OF TOWNS FOR COVID GROWTH IN CONNECTICUT**"),
+             subtitle = md("*Based on Total Cases Over the Last Seven Days*")) %>%
+  ## RENAMES COLUMNS
+  cols_label(town = md("**Town**"),
+             county = md("**County**"),
+             sum_new_cases = md("**New Cases**"),                               
+             sum_new_tests = md("**New Tests**"),
+             percent_pos = md("**Percent Positive**"),
+             sum_new_deaths = md("**New Deaths**")) %>%
+  ## FORMATS DATA
+  fmt_percent(columns = vars(percent_pos),                                   
+              decimals = 1) %>%
+  cols_align(align = "center") %>%
+  fmt_number(columns =  vars(sum_new_cases,
+                             sum_new_tests,
+                             sum_new_deaths),
+             decimals = 0) %>%
+  ## BOLD STATES COLUMN
+  tab_style(style = list(cell_text(weight = "bold")),                            
+            locations = cells_body(columns = vars(town))) %>% 
+  ## STRIPING
+  opt_row_striping(row_striping = TRUE) %>%                                      
+  tab_source_note(source_note = md("*Created by Andrew F. Griffin, Covid Data from data.ct.gov*"))
+```
