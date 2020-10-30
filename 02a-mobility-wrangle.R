@@ -1,4 +1,11 @@
 library(tidyverse)
+library(lubridate)
+library(zoo)
+
+# LAST UPDATE ?
+load("rda/mobility_update.rda")
+mobility_update
+
 # MOBILITY DATA
 url <- "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv"
 temp_file <- tempfile()
@@ -32,4 +39,5 @@ file.remove(temp_file)
 save(mobility, file = "rda/mobility.rda")
 
 # Last Update
-max(mobility$date)
+mobility_update <- max(mobility$date)
+save(mobility_update, file = "rda/mobility_update.rda")
