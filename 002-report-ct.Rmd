@@ -188,9 +188,9 @@ covid_ct %>%
 
 Covid Data for `r month(covid_ct$date[1], label = TRUE)` `r day(covid_ct$date[1])`  
 New Cases  
-Tdy (`r month(covid_ct$date[1])`-`r day(covid_ct$date[1])`): `r format(covid_ct$new_cases[1], big.mark = ",")` `r ifelse(covid_ct$new_cases[1] == max(covid_ct$new_cases, na.rm = TRUE), "*", "")`  
-Yest (`r month(covid_ct$date[2])`-`r day(covid_ct$date[2])`): `r format(covid_ct$new_cases[2], big.mark = ",")`  
-Lt Wk (`r month(covid_ct$date[8])`-`r day(covid_ct$date[8])`): `r format(covid_ct$new_cases[8], big.mark = ",")`  
+Tdy (`r month(covid_ct$date[1], label = TRUE)`-`r day(covid_ct$date[1])`): `r format(covid_ct$new_cases[1], big.mark = ",")` `r ifelse(covid_ct$new_cases[1] == max(covid_ct$new_cases, na.rm = TRUE), "*", "")`  
+Yest (`r month(covid_ct$date[2], label = TRUE)`-`r day(covid_ct$date[2])`): `r format(covid_ct$new_cases[2], big.mark = ",")`  
+Lst Wk (`r month(covid_ct$date[8], label = TRUE)`-`r day(covid_ct$date[8])`): `r format(covid_ct$new_cases[8], big.mark = ",")`  
 <br></br>
 New Tests  
 T: `r format(covid_ct$new_tests[1], big.mark = ",")` `r ifelse(covid_ct$new_tests[1] == max(covid_ct$new_tests, na.rm = TRUE), "*", "")`  
