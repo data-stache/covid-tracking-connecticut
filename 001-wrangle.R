@@ -146,11 +146,12 @@ covid_ct_towns <- covid_ct_towns %>%
   group_by(town) %>%
   mutate(new_cases_07da = rollapply(new_cases, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
          new_tests_07da = rollapply(new_tests, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
-         new_deaths_07da = rollapply(new_deaths, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left")) %>%
+         new_deaths_07da = rollapply(new_deaths, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
+         percent_pos_07da = rollapply(percent_pos, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left")) %>%
   ungroup()
 
 # COLUMN ORDER
-col_order_2 <- c("date", "day", "town", "county", "new_cases", "new_tests", "new_deaths", "new_cases_07da", "new_tests_07da", "new_deaths_07da", "percent_pos")
+col_order_2 <- c("date", "day", "town", "county", "new_cases", "new_tests", "new_deaths", "new_cases_07da", "new_tests_07da", "new_deaths_07da", "percent_pos", "percent_pos_07da")
 
 # REORDER COLUMNS
 covid_ct_towns <- covid_ct_towns[,col_order_2]
