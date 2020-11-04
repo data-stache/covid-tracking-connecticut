@@ -1,6 +1,14 @@
 # LOAD DATE
 load("rda/covid_ct.rda")
 
+# COVID CASES TOP 10
+covid_ct %>%
+  arrange(desc(new_cases)) %>% slice_head(n=10) %>% select(date, day, new_cases)
+
+# COVID CASES TOP 10
+covid_ct %>%
+  arrange(desc(new_cases_07da)) %>% slice_head(n=10) %>% select(date, day, new_cases_07da)
+
 # CASES THIS HIGH
 covid_ct %>%
   filter(new_cases >= covid_ct$new_cases[1]) %>% select(date, new_cases)
