@@ -151,6 +151,7 @@ grid.arrange(p_new_case, p_new_test, p_hosp, p_new_deaths, p_pos, p_new_hosp, nr
 # LOAD DATA
 load("rda/covid_ct.rda")
 load("rda/ind_tylm_date.rda")
+load("rda/ind_tdy.rda")
 
 ### CT TABLE
 covid_ct %>%
@@ -189,25 +190,32 @@ covid_ct %>%
 Covid Data for `r month(covid_ct$date[1], label = TRUE)` `r day(covid_ct$date[1])`  
 New Cases  
 Tdy (`r month(covid_ct$date[1], label = TRUE)`-`r day(covid_ct$date[1])`): `r format(covid_ct$new_cases[1], big.mark = ",")` `r ifelse(covid_ct$new_cases[1] == max(covid_ct$new_cases, na.rm = TRUE), "*", "")`  
-Yest (`r month(covid_ct$date[2], label = TRUE)`-`r day(covid_ct$date[2])`): `r format(covid_ct$new_cases[2], big.mark = ",")`  
-Lst Wk (`r month(covid_ct$date[8], label = TRUE)`-`r day(covid_ct$date[8])`): `r format(covid_ct$new_cases[8], big.mark = ",")`  
+Yest (`r month(covid_ct$date[covid_ct$date == ind_tdy - 1], label = TRUE)`-`r day(covid_ct$date[covid_ct$date == ind_tdy - 1])`): `r format(covid_ct$new_cases[covid_ct$date == ind_tdy - 1], big.mark = ",")`  
+Lst Wk (`r month(covid_ct$date[covid_ct$date == ind_tdy - 7], label = TRUE)`-`r day(covid_ct$date[covid_ct$date == ind_tdy - 7])`): `r format(covid_ct$new_cases[covid_ct$date == ind_tdy - 7], big.mark = ",")`  
 <br></br>
 New Tests  
 T: `r format(covid_ct$new_tests[1], big.mark = ",")` `r ifelse(covid_ct$new_tests[1] == max(covid_ct$new_tests, na.rm = TRUE), "*", "")`  
-Y: `r format(covid_ct$new_tests[2], big.mark = ",")`  
-LW: `r format(covid_ct$new_tests[8], big.mark = ",")`  
+Y: `r format(covid_ct$new_tests[covid_ct$date == ind_tdy - 1], big.mark = ",")`  
+LW: `r format(covid_ct$new_tests[covid_ct$date == ind_tdy - 7], big.mark = ",")`  
 <br></br>
 Percent Positive  
 T: `r round(covid_ct$percent_pos[1]*100, digits = 1)`%  
-Y: `r round(covid_ct$percent_pos[2]*100, digits = 1)`%  
-LW: `r round(covid_ct$percent_pos[8]*100, digits = 1)`%  
+Y: `r round(covid_ct$percent_pos[covid_ct$date == ind_tdy - 1]*100, digits = 1)`%  
+LW: `r round(covid_ct$percent_pos[covid_ct$date == ind_tdy - 7]*100, digits = 1)`%  
 <br></br>
 New Deaths  
 T: `r format(covid_ct$new_deaths[1], big.mark = ",")` `r ifelse(covid_ct$new_deaths[1] == max(covid_ct$new_deaths, na.rm = TRUE), "*", "")`  
-Y: `r format(covid_ct$new_deaths[2], big.mark = ",")`  
-LW: `r format(covid_ct$new_deaths[8], big.mark = ",")`  
+Y: `r format(covid_ct$new_deaths[covid_ct$date == ind_tdy - 1], big.mark = ",")`  
+LW: `r format(covid_ct$new_deaths[covid_ct$date == ind_tdy - 7], big.mark = ",")`  
 * = Record  
 <br></br>
+
+Compared to other `r covid_ct$day[1]`'s
+```{r DAY OF THE WEEK STATS, echo=FALSE, message=FALSE, warning=FALSE}
+covid_ct %>%
+  filter(day == day[1])
+```
+
 The Last Time Things were this bad:
 ```{r CASES TOP 10, echo=FALSE, message=FALSE, warning=FALSE}
 covid_ct %>%

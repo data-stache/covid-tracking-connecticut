@@ -61,7 +61,7 @@ fit
 train_set %>% 
   mutate(smooth = fit$fitted) %>%
   ggplot(aes(x = temp, y = cases)) +
-  geom_point(size = 1, alpha = .5, color = "grey") +
+  geom_point(size = 1, alpha = .5, color = "black") +
   geom_line(aes(temp, smooth), color = "red")
 
 y_hat <- predict(fit, test_set)
