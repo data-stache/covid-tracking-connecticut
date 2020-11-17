@@ -330,3 +330,6 @@ save(town_growth_top10, file = "rda/town_growth_top10.rda")
 county_growth_ord <- head(covid_ct_counties_sum[ind_new_case_county,],8)
 save(county_growth_ord, file = "rda/county_growth_ord.rda")
 
+# LAST UPDATE
+ind_tdy
+
