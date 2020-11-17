@@ -14,8 +14,9 @@ covid_ct %>%
   ggplot(aes(x = day, y = new_cases)) +
   geom_boxplot(fill = "light blue", size = .25, outlier.shape = NA) +
   geom_point(color = "Dark blue", size = .5) +
-  ggtitle("Does Day Of The Week Impact New Case Count?",
+  ggtitle("Day Of The Week VS New Case Count",
           subtitle = "Daily New Cases Reported Sunday - Thursday Since Connecticut Stopped Weekend Reporting") +
+  labs(caption = 'Created by Andrew F. Griffin') +
   theme_DataStache() +
   coord_flip()
 
@@ -30,54 +31,86 @@ ggsave("figs/Connecticut New Report Box Plot.png",
 # Box Plot of New Deaths Day of Week over Time
 covid_ct %>%
   mutate(week = epiweek(date),
-         day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 
+         day = factor(day, levels = c("Thursday", "Wednesday", "Tuesday", "Monday", "Sunday"))) %>% 
   group_by(week) %>%
   mutate(weeks = min(date)) %>%
   filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = new_deaths)) +
-  geom_boxplot() +
-  geom_point() +
-  ggtitle("Connecticut New Deaths Box Plot") +
-  theme_DataStache()
+  geom_boxplot(fill = "light blue", size = .25, outlier.shape = NA) +
+  geom_point(color = "Dark blue", size = .5) +
+  ggtitle("Day Of The Week VS Death Count",
+          subtitle = "Daily New Deaths Reported Sunday - Thursday Since Connecticut Stopped Weekend Reporting") +
+  labs(caption = 'Created by Andrew F. Griffin') +
+  theme_DataStache() +
+  coord_flip()
+
+ggsave("figs/Connecticut New Death Report Box Plot.png",
+       width = p_width,
+       height = p_height,
+       dpi = "retina")
 
 # Box Plot of New Hospitalization Day of Week over Time
 covid_ct %>%
   mutate(week = epiweek(date),
-         day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 
+         day = factor(day, levels = c("Thursday", "Wednesday", "Tuesday", "Monday", "Sunday"))) %>% 
   group_by(week) %>%
   mutate(weeks = min(date)) %>%
   filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = new_hosp)) +
-  geom_boxplot() +
-  geom_point() +
-  ggtitle("Connecticut New Hospitalization Box Plot") +
-  theme_DataStache()
+  geom_boxplot(fill = "light blue", size = .25, outlier.shape = NA) +
+  geom_point(color = "Dark blue", size = .5) +
+  ggtitle("Day Of The Week VS New Hospitalization Reported",
+          subtitle = "Daily Change in Hospitalization Reported Sunday - Thursday Since Connecticut Stopped Weekend Reporting") +
+  labs(caption = 'Created by Andrew F. Griffin') +
+  theme_DataStache() +
+  coord_flip()
+
+ggsave("figs/Connecticut Hospitalization Report Box Plot.png",
+       width = p_width,
+       height = p_height,
+       dpi = "retina")
 
 # Box Plot of New Testing Day of Week over Time
 covid_ct %>%
   mutate(week = epiweek(date),
-         day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 
+         day = factor(day, levels = c("Thursday", "Wednesday", "Tuesday", "Monday", "Sunday"))) %>% 
   group_by(week) %>%
   mutate(weeks = min(date)) %>%
   filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = new_tests)) +
-  geom_boxplot() +
-  geom_point() +
-  ggtitle("Connecticut New Testing Box Plot") +
-  theme_DataStache()
+  geom_boxplot(fill = "light blue", size = .25, outlier.shape = NA) +
+  geom_point(color = "Dark blue", size = .5) +
+  ggtitle("Day Of The Week VS New Testing Reported",
+          subtitle = "Daily New Tests Reported Sunday - Thursday Since Connecticut Stopped Weekend Reporting") +
+  labs(caption = 'Created by Andrew F. Griffin') +
+  theme_DataStache() +
+  coord_flip()
+
+ggsave("figs/Connecticut New Testing Report Box Plot.png",
+       width = p_width,
+       height = p_height,
+       dpi = "retina")
 
 # Box Plot of Percent Positive Day of Week over Time
 covid_ct %>%
   mutate(week = epiweek(date),
-         day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>% 
+         day = factor(day, levels = c("Thursday", "Wednesday", "Tuesday", "Monday", "Sunday"))) %>% 
   group_by(week) %>%
   mutate(weeks = min(date)) %>%
   filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = percent_pos)) +
-  geom_boxplot() +
-  geom_point() +
-  ggtitle("Connecticut Percent Positive Box Plot") +
-  theme_DataStache()
+  geom_boxplot(fill = "light blue", size = .25, outlier.shape = NA) +
+  geom_point(color = "Dark blue", size = .5) +
+  ggtitle("Day Of The Week VS Percent Share Positive Tests Reported",
+          subtitle = "Daily Percent Share Positive Tests Reported Sunday - Thursday Since Connecticut Stopped Weekend Reporting") +
+  labs(caption = 'Created by Andrew F. Griffin') +
+  theme_DataStache() +
+  coord_flip()
+
+ggsave("figs/Connecticut percent Positive Report Box Plot.png",
+       width = p_width,
+       height = p_height,
+       dpi = "retina")
 
 
 ##### DAY AGAINST DAY #####
