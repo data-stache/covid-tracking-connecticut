@@ -7,11 +7,11 @@ load("rda/covid_ct.rda")
 load("rda/ct_weather.rda")
 
 head(covid_ct)
-head(weather_usa)
+head(ct_weather)
 
 # BUILD DATA SET
 dat <- covid_ct %>%
-  filter(date >= ymd(20200401)) %>%
+  filter(date >= ymd(20200415)) %>%
   select(date, new_cases) %>%
   left_join(ct_weather) %>%
   select(1:3) %>%
@@ -23,7 +23,10 @@ dat <- covid_ct %>%
 
 dat %>%
   ggplot(aes(x = temp, y = cases)) +
-  geom_point()
+  geom_point(size = .5, alpha = .5) +
+  geom_smooth(method = 'loess') +
+  theme_DataStache() +
+  theme(axis.title = element_text(size = rel(.8)))
 
 
 # BUILD TRAIN AND TEST SET
