@@ -26,7 +26,14 @@ dat %>%
   geom_point(size = .5, alpha = .5) +
   geom_smooth(method = 'loess') +
   theme_DataStache() +
-  theme(axis.title = element_text(size = rel(.8)))
+  theme(axis.title = element_text(size = rel(.8))) +
+
+p_width <- 9
+p_height <- (9/16) * p_width
+ggsave("figs/ct-weather-infection-regression.png",
+       width = p_width,
+       height = p_height,
+       dpi = "retina")
 
 
 # BUILD TRAIN AND TEST SET
