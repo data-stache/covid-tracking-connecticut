@@ -11,7 +11,7 @@ p_new_case <- covid_ct %>%
   ggplot(aes(date, new_cases)) +
   geom_hline(yintercept=0, col = "grey40", size = .2) +
   # INSERT PHASE 3 REOPEN MARKER
-  geom_vline(xintercept = ymd(20201008), size = .15, color = "grey40") +
+  #geom_vline(xintercept = ymd(20201008), size = .15, color = "grey40") +
   geom_bar(stat = "identity", fill="blue", alpha = .3, size = .1) +
   scale_color_manual(values="light grey") +
   geom_line(aes(y = new_cases_07da), size = .25, col="blue") +
