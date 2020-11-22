@@ -126,7 +126,7 @@ weekly_summary_function <- function(cnty) {
                                                      to = max_date, 
                                                      by = "week")) +
     theme_DataStache() +
-    coord_cartesian(expand = FALSE) +
+    coord_cartesian(expand = FALSE, ylim = c(0, NA)) +
     geom_hline(yintercept = 0, size = .25 , col = "grey40") +
     theme(plot.title = element_text(size = rel(.5), hjust = .5),
           plot.subtitle = element_text(size = rel(.5), face = 'bold',
