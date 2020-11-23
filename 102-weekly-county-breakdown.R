@@ -46,7 +46,8 @@ weekly_summary_function <- function(cnty) {
                                                by = "2 weeks"),
                  minor_breaks = function(x) seq.Date(from = min_date, 
                                                      to = max_date, 
-                                                     by = "week")) +
+                                                     by = "week"),
+                 date_labels = '%b-%d') +
     theme_DataStache() +
     coord_cartesian(expand = FALSE) +
     geom_hline(yintercept = 0, size = .25 , col = "grey40") +
@@ -54,9 +55,10 @@ weekly_summary_function <- function(cnty) {
           plot.subtitle = element_text(size = rel(.5), face = 'bold',
                                        hjust = .5,
                                        vjust = 1.5, colour = 'red4'),
-          axis.text = element_text(size = rel(.2),
-                                   face = "bold"),
-          axis.text.x = element_text(angle = 90),
+          axis.text.y = element_text(size = rel(1),
+                                     face = "bold"),
+          axis.text.x = element_text(size = rel(.8),
+                                     angle = 90),
           panel.grid.major.x = element_blank(),
           plot.margin = unit(c(.1, .2, .1, .2), "cm"))
   
@@ -72,7 +74,8 @@ weekly_summary_function <- function(cnty) {
                                                by = "2 weeks"),
                  minor_breaks = function(x) seq.Date(from = min_date, 
                                                      to = max_date, 
-                                                     by = "week")) +
+                                                     by = "week"),
+                 date_labels = '%b-%d') +
     theme_DataStache() +
     coord_cartesian(xlim = c(ymd(20200329), NA), expand = FALSE) +
     geom_hline(yintercept = 0, size = .25 , col = "grey40") +
@@ -80,9 +83,10 @@ weekly_summary_function <- function(cnty) {
           plot.subtitle = element_text(size = rel(.5), face = 'bold',
                                        hjust = .5,
                                        vjust = 1.5, colour = 'magenta4'),
-          axis.text = element_text(size = rel(.2),
-                                   face = "bold"),
-          axis.text.x = element_text(angle = 90),
+          axis.text.y = element_text(size = rel(1),
+                                     face = "bold"),
+          axis.text.x = element_text(size = rel(.8),
+                                     angle = 90),
           panel.grid.major.x = element_blank(),
           plot.margin = unit(c(.1, .2, .1, .2), "cm"))
   
@@ -98,7 +102,8 @@ weekly_summary_function <- function(cnty) {
                                                by = "2 weeks"),
                  minor_breaks = function(x) seq.Date(from = min_date, 
                                                      to = max_date, 
-                                                     by = "week")) +
+                                                     by = "week"),
+                 date_labels = '%b-%d') +
     theme_DataStache() +
     coord_cartesian(expand = FALSE) +
     geom_hline(yintercept = 0, size = .25 , col = "grey40") +
@@ -106,9 +111,10 @@ weekly_summary_function <- function(cnty) {
           plot.subtitle = element_text(size = rel(.5), face = 'bold',
                                        hjust = .5,
                                        vjust = 1.5, colour = 'dark blue'),
-          axis.text = element_text(size = rel(.2),
-                                   face = "bold"),
-          axis.text.x = element_text(angle = 90),
+          axis.text.y = element_text(size = rel(1),
+                                     face = "bold"),
+          axis.text.x = element_text(size = rel(.8),
+                                     angle = 90),
           panel.grid.major.x = element_blank(),
           plot.margin = unit(c(.1, .2, .1, .2), "cm"))
   
@@ -124,7 +130,8 @@ weekly_summary_function <- function(cnty) {
                                                by = "2 weeks"),
                  minor_breaks = function(x) seq.Date(from = min_date, 
                                                      to = max_date, 
-                                                     by = "week")) +
+                                                     by = "week"),
+                 date_labels = '%b-%d') +
     theme_DataStache() +
     coord_cartesian(expand = FALSE, ylim = c(0, NA)) +
     geom_hline(yintercept = 0, size = .25 , col = "grey40") +
@@ -132,9 +139,10 @@ weekly_summary_function <- function(cnty) {
           plot.subtitle = element_text(size = rel(.5), face = 'bold',
                                        hjust = .5,
                                        vjust = 1.5, colour = 'green4'),
-          axis.text = element_text(size = rel(.2),
+          axis.text.y = element_text(size = rel(1),
                                    face = "bold"),
-          axis.text.x = element_text(angle = 90),
+          axis.text.x = element_text(size = rel(.8),
+                                     angle = 90),
           panel.grid.major.x = element_blank(),
           plot.margin = unit(c(.1, .2, .1, .2), "cm"))
 
