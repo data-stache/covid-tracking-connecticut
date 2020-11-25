@@ -1,4 +1,4 @@
-d <- 'Sunday'
+d <- 'Monday'
 
 covid_ct %>%
   filter(date >= ymd(20200701)) %>%
