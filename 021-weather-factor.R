@@ -1,6 +1,9 @@
 library(broom)
 library(tidyverse)
 library(caret)
+library(lubridate)
+library(zoo)
+library(tidylog)
 
 load("rda/theme_DataStache.rda")
 load("rda/covid_ct.rda")
@@ -26,7 +29,7 @@ dat %>%
   geom_point(size = .5, alpha = .5) +
   geom_smooth(method = 'loess') +
   theme_DataStache() +
-  theme(axis.title = element_text(size = rel(.8))) +
+  theme(axis.title = element_text(size = rel(.8)))
 
 p_width <- 9
 p_height <- (9/16) * p_width

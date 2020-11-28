@@ -81,6 +81,7 @@ p_hosp <- covid_ct_counties %>%
         axis.text = element_text(size = rel(.9)),
         plot.caption = element_text(size = rel(.5)))
 
+library(gridExtra)
 # GRID ARRANGE PLOTS
 grid.arrange(p_new_case, p_new_test, p_new_deaths, p_hosp, nrow = 2)
 

@@ -2,6 +2,8 @@
 load("rda/covid_ct_counties.rda")
 load("rda/theme_DataStache.rda")
 
+library(gghighlight)
+
 ##### PLOT CHARTS
 # NEW CASES
 p_new_case_percap_all <- covid_ct_counties %>%

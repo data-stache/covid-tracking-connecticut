@@ -40,7 +40,8 @@ p_Cases <- covid_ct_weekly %>%
                                              by = "2 weeks"),
                minor_breaks = function(x) seq.Date(from = min_date, 
                                                    to = max_date, 
-                                                   by = "week")) +
+                                                   by = "week"),
+               date_labels = '%b-%d') +
   theme_DataStache() +
   coord_cartesian(expand = FALSE) +
   geom_hline(yintercept = 0, size = .25 , col = "grey40") +
@@ -69,7 +70,8 @@ p_Tests <- covid_ct_weekly %>%
                                              by = "2 weeks"),
                minor_breaks = function(x) seq.Date(from = min_date, 
                                                    to = max_date, 
-                                                   by = "week")) +
+                                                   by = "week"),
+               date_labels = '%b-%d') +
   theme_DataStache() +
   coord_cartesian(xlim = c(ymd(20200329), NA), expand = FALSE) +
   geom_hline(yintercept = 0, size = .25 , col = "grey40") +
@@ -98,7 +100,8 @@ p_Hosp <- covid_ct_weekly %>%
                                              by = "2 weeks"),
                minor_breaks = function(x) seq.Date(from = min_date, 
                                                    to = max_date, 
-                                                   by = "week")) +
+                                                   by = "week"),
+               date_labels = '%b-%d') +
   theme_DataStache() +
   coord_cartesian(expand = FALSE) +
   geom_hline(yintercept = 0, size = .25 , col = "grey40") +
@@ -127,7 +130,8 @@ p_Death <- covid_ct_weekly %>%
                                              by = "2 weeks"),
                minor_breaks = function(x) seq.Date(from = min_date, 
                                                    to = max_date, 
-                                                   by = "week")) +
+                                                   by = "week"),
+               date_labels = '%b-%d') +
   theme_DataStache() +
   coord_cartesian(expand = FALSE) +
   geom_hline(yintercept = 0, size = .25 , col = "grey40") +

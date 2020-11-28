@@ -7,6 +7,7 @@ load("rda/covid_ct_counties_zone.rda")
 load("rda/covid_ct_sum.rda")
 options(digits = 3)
 
+library(knitr)
 # DAILY LOOKUP TOTAL
 covid_ct %>%
   select(date, new_cases, new_tests, percent_pos, new_deaths, current_hosp, new_hosp) %>%

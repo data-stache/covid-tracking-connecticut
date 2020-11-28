@@ -135,6 +135,7 @@ ggsave(paste("figs/state-daily-summary-", tdy_date, ".png", sep = ""),
 load("rda/covid_ct_counties.rda")
 load("rda/theme_DataStache.rda")
 
+library(gghighlight)
 ##### PLOT CHARTS
 # NEW CASES
 p_new_case_percap_all <- covid_ct_counties %>%
@@ -277,6 +278,7 @@ load("rda/covid_ct_counties_sum.rda")
 load("rda/covid_ct_counties_zone.rda")
 load("rda/theme_DataStache.rda")
 
+library(usmap)
 covid_ct_map_x <- merge(covid_ct_counties_sum, covid_ct_counties_zone, by = c("county", "sum_cases_percap", "percent_pos"))
 covid_ct_map_x$county <- fips("CT", covid_ct_map_x$county)
 

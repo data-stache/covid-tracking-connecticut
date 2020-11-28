@@ -1,3 +1,6 @@
+library(tidyverse)
+library(tidylog)
+
 ##### LOAD THE DATA ##### 
 # CT TOWNSHIP CODE TO COUNTY
 town_county_code <- read.csv("data/town_id_county.csv")
@@ -24,8 +27,10 @@ covid_ct <- covid_ct %>%
                             town_no %in% town_county_code$WINDHAM ~ "Windham"))
 
 # REFORMAT DATE
+library(lubridate)
+
 covid_ct <- covid_ct %>%
-  rename("date" = "lastupdatedate") 
+  rename("date" = "lastupdatedate")
 covid_ct$date <- ymd(covid_ct$date)
 
 county_hospitalization <- county_hospitalization %>%
@@ -97,6 +102,7 @@ covid_ct_counties <- covid_ct_counties %>%
 covid_ct_counties <- covid_ct_counties %>%
   arrange(desc(date))
 
+library(zoo)
 # COUNTY ADD 7 DAY ROLLING AVERAGES
 covid_ct_counties <- covid_ct_counties %>%
   group_by(county) %>%
@@ -333,3 +339,5 @@ save(county_growth_ord, file = "rda/county_growth_ord.rda")
 # LAST UPDATE
 ind_tdy
 
+# CLEAR ENVIRONS
+rm(list=ls())

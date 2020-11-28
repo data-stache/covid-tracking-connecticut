@@ -4,6 +4,8 @@ library(rnoaa)
 library(zoo)
 load("rda/ct_stations.rda")
 
+meteo_clear_cache(force = FALSE)
+
 ct_weather <- meteo_pull_monitors(ct_stations, date_min = "2020-03-01", var = c("TMIN", "TMAX"))
 
 ct_weather <- ct_weather %>%
