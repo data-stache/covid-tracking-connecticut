@@ -1,4 +1,6 @@
-d <- 'Monday'
+load('rda/theme_DataStache.rda')
+
+d <- 'Sunday'
 
 covid_ct %>%
   filter(date >= ymd(20200701)) %>%
