@@ -1,6 +1,6 @@
 load('rda/theme_DataStache.rda')
 
-d <- 'Sunday'
+d <- 'Monday'
 
 covid_ct %>%
   filter(date >= ymd(20200701)) %>%
@@ -28,13 +28,13 @@ covid_ct %>%
             hosp = mean(current_hosp, na.rm = TRUE)) %>%
   gather(metric, total, cases:hosp) %>%
   ungroup() %>%
-  filter(day == d & !metric %in% c('deaths', 'tests')) %>%
+  filter(day == d & !metric == 'deaths') %>%
   group_by(metric) %>%
   arrange(desc(week)) %>%
   mutate(change = rollapply(total, width=2, FUN=function(x) (x[1] - x[2]) / x[2] * 100, fill = NA, align="left"),
          week = ymd(20200105) + weeks(week-2),
-         metric = factor(metric, levels = c('cases', 'hosp'),
-                         labels = c('Weekly Percent Change: Newly Reported Cases', 'Weekly Percent Change: Current Hospitalization'))) %>%
+         metric = factor(metric, levels = c('cases', 'tests', 'hosp'),
+                         labels = c('Weekly % Change: Newly Reported Cases', 'Weekly % Change: New Tests', 'Weekly % Change: Current Hospitalization'))) %>%
   ungroup() %>%
   ggplot() +
   geom_hline(yintercept = 0, col = 'grey60') +
