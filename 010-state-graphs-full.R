@@ -116,11 +116,13 @@ p_pos <- covid_ct %>%
 # GRID ARRANGE PLOTS
 grid.arrange(p_new_case, p_new_test, p_hosp, p_new_deaths, p_pos, p_new_hosp, nrow = 2)
 
+tdy_date <- covid_ct$date[1]
+
 p_width <- 6
 p_height <- (9/16) * p_width 
 
 P <- arrangeGrob(p_new_case, p_new_test, p_hosp, p_new_deaths, p_pos, p_new_hosp, nrow = 2)
-ggsave("figs/State Daily Sum.png",
+ggsave(paste("figs/state-daily-metrics-", tdy_date, ".png", sep = ''),
        P,
        width = p_width,
        height = p_height,

@@ -153,8 +153,6 @@ ggsave("figs/Day of Week Compare.png",
        height = p_height,
        dpi = "retina")
 
-ct_total_infected
-
 covid_ct %>%
   filter(date >= ymd(20200701)) %>%
   mutate(day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"))) %>%
