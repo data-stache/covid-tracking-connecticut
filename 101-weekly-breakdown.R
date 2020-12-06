@@ -3,7 +3,9 @@ library(lubridate)
 library(gridExtra)
 
 load('rda/covid_ct.rda')
-load('rda/theme_DataStache.rda')
+load("/Users/andrewgriffin/projects/zConstants/rda/theme_DataStache.rda")
+
+tdy_date <- covid_ct$date[1]
 
 covid_ct_weekly <- covid_ct %>%
   filter(date >= ymd(20200329)) %>%
@@ -152,7 +154,7 @@ P <- arrangeGrob(p_Cases, p_Tests, p_Hosp, p_Death, nrow = 1)
 p_width <- 6
 p_height <- (9/16) * p_width 
 
-ggsave("figs/Weekly Sum.png",
+ggsave(paste("figs/weekly-percent-change-", tdy_date,".png", sep = ''),
        P,
        width = p_width,
        height = p_height,

@@ -1,3 +1,6 @@
+library(knitr)
+library(zoo)
+
 covid_ct %>%
   mutate(week = epiweek(date)) %>%
   group_by(week) %>%

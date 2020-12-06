@@ -3,7 +3,9 @@ library(lubridate)
 library(gridExtra)
 
 load('rda/covid_ct_counties.rda')
-load('rda/theme_DataStache.rda')
+load("/Users/andrewgriffin/projects/zConstants/rda/theme_DataStache.rda")
+
+tdy_date <- covid_ct_counties$date[1]
 
 covid_ct_county_weekly <- covid_ct_counties %>%
   filter(date >= ymd(20200329)) %>%
@@ -152,7 +154,7 @@ weekly_summary_function <- function(cnty) {
   p_width <- 6
   p_height <- (9/16) * p_width 
 
-  ggsave(paste('figs/', cnty, 'Weekly Sum.png'),
+  ggsave(paste('figs/', cnty, '-weekly-metrics-', tdy_date, '.png', sep = ''),
          P,
          width = p_width,
          height = p_height,

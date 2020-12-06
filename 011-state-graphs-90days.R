@@ -1,6 +1,6 @@
 # LOAD DATA
 load("rda/covid_ct.rda")
-load("rda/theme_DataStache.rda")
+load("/Users/andrewgriffin/projects/zConstants/rda/theme_DataStache.rda")
 load("rda/ind_xlim_3m.rda")
 
 covid_ct <- covid_ct %>%
@@ -112,6 +112,7 @@ p_pos <- covid_ct %>%
         plot.caption = element_text(size = rel(.5)))
 
 # GRID ARRANGE PLOTS
+library(gridExtra)
 grid.arrange(p_new_case, p_new_test, p_hosp, p_new_deaths, p_pos, p_new_hosp, nrow = 2)
 
 tdy_date <- covid_ct$date[1]

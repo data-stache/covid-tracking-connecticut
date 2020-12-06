@@ -12,10 +12,11 @@ covid_ct %>%
   mutate(weeks = min(date)) %>%
   filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = new_cases)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_boxplot(fill = "light blue", size = .25, outlier.shape = NA) +
-  geom_point(color = "Dark blue", size = .5) +
+  geom_jitter(color = "Dark blue", size = .5, width = .15, alpha = .5) +
   ggtitle("Day Of The Week VS New Case Count",
-          subtitle = "Daily New Cases Reported Sunday - Thursday Since Connecticut Stopped Weekend Reporting") +
+          subtitle = "Since July 1, 2020") +
   labs(caption = 'Created by Andrew F. Griffin') +
   theme_DataStache() +
   coord_flip()
@@ -36,10 +37,11 @@ covid_ct %>%
   mutate(weeks = min(date)) %>%
   filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = new_deaths)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_boxplot(fill = "light blue", size = .25, outlier.shape = NA) +
-  geom_point(color = "Dark blue", size = .5) +
+  geom_jitter(color = "Dark blue", size = .5, width = .15, alpha = .5) +
   ggtitle("Day Of The Week VS Death Count",
-          subtitle = "Daily New Deaths Reported Sunday - Thursday Since Connecticut Stopped Weekend Reporting") +
+          subtitle = "Since July 1, 2020") +
   labs(caption = 'Created by Andrew F. Griffin') +
   theme_DataStache() +
   coord_flip()
@@ -57,10 +59,11 @@ covid_ct %>%
   mutate(weeks = min(date)) %>%
   filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = new_hosp)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_boxplot(fill = "light blue", size = .25, outlier.shape = NA) +
-  geom_point(color = "Dark blue", size = .5) +
+  geom_jitter(color = "Dark blue", size = .5, width = .15, alpha = .5) +
   ggtitle("Day Of The Week VS New Hospitalization Reported",
-          subtitle = "Daily Change in Hospitalization Reported Sunday - Thursday Since Connecticut Stopped Weekend Reporting") +
+          subtitle = "Since July 1, 2020") +
   labs(caption = 'Created by Andrew F. Griffin') +
   theme_DataStache() +
   coord_flip()
@@ -78,10 +81,11 @@ covid_ct %>%
   mutate(weeks = min(date)) %>%
   filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = new_tests)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_boxplot(fill = "light blue", size = .25, outlier.shape = NA) +
-  geom_point(color = "Dark blue", size = .5) +
+  geom_jitter(color = "Dark blue", size = .5, width = .15, alpha = .5) +
   ggtitle("Day Of The Week VS New Testing Reported",
-          subtitle = "Daily New Tests Reported Sunday - Thursday Since Connecticut Stopped Weekend Reporting") +
+          subtitle = "Since July 1, 2020") +
   labs(caption = 'Created by Andrew F. Griffin') +
   theme_DataStache() +
   coord_flip()
@@ -99,10 +103,11 @@ covid_ct %>%
   mutate(weeks = min(date)) %>%
   filter(date >= ymd(20200701)) %>%
   ggplot(aes(x = day, y = percent_pos)) +
+  geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_boxplot(fill = "light blue", size = .25, outlier.shape = NA) +
-  geom_point(color = "Dark blue", size = .5) +
+  geom_jitter(color = "Dark blue", size = .5, width = .15, alpha = .5) +
   ggtitle("Day Of The Week VS Percent Share Positive Tests Reported",
-          subtitle = "Daily Percent Share Positive Tests Reported Sunday - Thursday Since Connecticut Stopped Weekend Reporting") +
+          subtitle = "Since July 1, 2020") +
   labs(caption = 'Created by Andrew F. Griffin') +
   theme_DataStache() +
   coord_flip()

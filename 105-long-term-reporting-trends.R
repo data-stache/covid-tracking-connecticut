@@ -1,13 +1,18 @@
 library(dplyr)
 library(lubridate)
+library(ggplot2)
+library(tidyverse)
+library(tidylog)
+
 load("rda/covid_ct.rda")
-load("rda/theme_DataStache.rda")
+load("/Users/andrewgriffin/projects/zConstants/rda/theme_DataStache.rda")
 options(scipen = 999)
 
 head(covid_ct)
 
 dat <- covid_ct %>%
   #filter(date >= ymd(20200701)) %>%
+  filter(date < ymd(20201201)) %>%
   filter(date >= ymd(20200401)) %>%
   mutate(month = month(date, label = TRUE),
          day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))) %>%
