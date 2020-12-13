@@ -17,7 +17,7 @@ p_new_case <- covid_ct %>%
   scale_color_manual(values="light grey") +
   geom_line(aes(y = new_cases_07da), size = .25, col="blue") +
   ggtitle("Connecticut New Cases Total",
-          subtitle = "New Cases Per Day With Rolling 7 Day Average") +
+          subtitle = "New Cases Per Day With Rolling 7 Day Average\nLast 90 days") +
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_y_continuous(expand = c(0,0)) +
@@ -34,7 +34,7 @@ p_new_test <- covid_ct %>%
   scale_color_manual(values="light grey") +
   geom_line(aes(y = new_tests_07da), size = .25, col="dark green") +
   ggtitle("Connecticut New Tests Total",
-          subtitle = "Tests Per Day With Rolling 7 Day Average") +
+          subtitle = "Tests Per Day With Rolling 7 Day Average\nLast 90 days") +
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_y_continuous(expand = c(0,0)) +
@@ -51,7 +51,7 @@ p_new_deaths <- covid_ct %>%
   scale_color_manual(values="light grey") +
   geom_line(aes(y = new_deaths_07da), size = .25, col="dark red") +
   ggtitle("Connecticut New Deaths Total",
-          subtitle = "Deaths Per Day With Rolling 7 Day Average") +
+          subtitle = "Deaths Per Day With Rolling 7 Day Average\nLast 90 days") +
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_y_continuous(expand = c(0,0)) +
@@ -68,7 +68,7 @@ p_new_hosp <- covid_ct %>%
   scale_color_manual(values="light grey") +
   geom_line(aes(y = new_hosp_07da), size = .25, col="yellow4") +
   ggtitle(paste("Connecticut New Hospitalization"),
-          subtitle = "Newly Hospitalized Per Day With Rolling 7 Day Average") +
+          subtitle = "Newly Hospitalized Per Day With Rolling 7 Day Average\nLast 90 days") +
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_y_continuous(expand = c(0,0)) +
@@ -85,7 +85,7 @@ p_hosp <- covid_ct %>%
   scale_color_manual(values="light grey") +
   geom_line(aes(y = cur_hosp_07da), size = .25, col="orange4") +
   ggtitle(paste("Connecticut Current Hospitalization"),
-          subtitle = "Currently Hospitalized With Rolling 7 Day Average") +
+          subtitle = "Currently Hospitalized With Rolling 7 Day Average\nLast 90 days") +
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_y_continuous(expand = c(0,0)) +
@@ -102,7 +102,7 @@ p_pos <- covid_ct %>%
   scale_color_manual(values="light grey") +
   geom_line(aes(y = percent_pos_07da), size = .25, col="orange4") +
   ggtitle(paste("Connecticut Percent Positive"),
-          subtitle = "Percent Share Positive With Rolling 7 Day Average") +
+          subtitle = "Percent Share Positive With Rolling 7 Day Average\nLast 90 days") +
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_y_continuous(expand = c(0,0)) + 

@@ -1,6 +1,7 @@
 library(tidyverse)
 library(lubridate)
 library(gridExtra)
+options(scipen = 999)
 
 load('rda/covid_ct.rda')
 load("/Users/andrewgriffin/projects/zConstants/rda/theme_DataStache.rda")
@@ -47,13 +48,14 @@ p_Cases <- covid_ct_weekly %>%
   theme_DataStache() +
   coord_cartesian(expand = FALSE) +
   geom_hline(yintercept = 0, size = .25 , col = "grey40") +
-  theme(plot.title = element_text(size = rel(.4), hjust = .5),
+  theme(plot.title = element_text(size = rel(.5), hjust = .5),
         plot.subtitle = element_text(size = rel(.5), face = 'bold',
                                      hjust = .5,
-                                     vjust = 1.5, colour = 'red4'),
-        axis.text = element_text(size = rel(.4),
-                                 face = "bold"),
-        axis.text.x = element_text(angle = 90),
+                                     vjust = 1.5, colour = 'dark blue'),
+        axis.text.y = element_text(size = rel(1),
+                                   face = "bold"),
+        axis.text.x = element_text(size = rel(.8),
+                                   angle = 90),
         panel.grid.major.x = element_blank(),
         plot.margin = unit(c(.1, .2, .1, .2), "cm"))
   
@@ -77,13 +79,14 @@ p_Tests <- covid_ct_weekly %>%
   theme_DataStache() +
   coord_cartesian(xlim = c(ymd(20200329), NA), expand = FALSE) +
   geom_hline(yintercept = 0, size = .25 , col = "grey40") +
-  theme(plot.title = element_text(size = rel(.4), hjust = .5),
+  theme(plot.title = element_text(size = rel(.5), hjust = .5),
         plot.subtitle = element_text(size = rel(.5), face = 'bold',
                                      hjust = .5,
-                                     vjust = 1.5, colour = 'magenta4'),
-        axis.text = element_text(size = rel(.4),
-                                 face = "bold"),
-        axis.text.x = element_text(angle = 90),
+                                     vjust = 1.5, colour = 'dark blue'),
+        axis.text.y = element_text(size = rel(1),
+                                   face = "bold"),
+        axis.text.x = element_text(size = rel(.8),
+                                   angle = 90),
         panel.grid.major.x = element_blank(),
         plot.margin = unit(c(.1, .2, .1, .2), "cm"))
 
@@ -107,13 +110,14 @@ p_Hosp <- covid_ct_weekly %>%
   theme_DataStache() +
   coord_cartesian(expand = FALSE) +
   geom_hline(yintercept = 0, size = .25 , col = "grey40") +
-  theme(plot.title = element_text(size = rel(.4), hjust = .5),
+  theme(plot.title = element_text(size = rel(.5), hjust = .5),
         plot.subtitle = element_text(size = rel(.5), face = 'bold',
                                      hjust = .5,
                                      vjust = 1.5, colour = 'dark blue'),
-        axis.text = element_text(size = rel(.4),
-                                 face = "bold"),
-        axis.text.x = element_text(angle = 90),
+        axis.text.y = element_text(size = rel(1),
+                                   face = "bold"),
+        axis.text.x = element_text(size = rel(.8),
+                                   angle = 90),
         panel.grid.major.x = element_blank(),
         plot.margin = unit(c(.1, .2, .1, .2), "cm"))
 
@@ -137,13 +141,14 @@ p_Death <- covid_ct_weekly %>%
   theme_DataStache() +
   coord_cartesian(expand = FALSE) +
   geom_hline(yintercept = 0, size = .25 , col = "grey40") +
-  theme(plot.title = element_text(size = rel(.4), hjust = .5),
+  theme(plot.title = element_text(size = rel(.5), hjust = .5),
         plot.subtitle = element_text(size = rel(.5), face = 'bold',
                                      hjust = .5,
-                                     vjust = 1.5, colour = 'green4'),
-        axis.text = element_text(size = rel(.4),
-                                 face = "bold"),
-        axis.text.x = element_text(angle = 90),
+                                     vjust = 1.5, colour = 'dark blue'),
+        axis.text.y = element_text(size = rel(1),
+                                   face = "bold"),
+        axis.text.x = element_text(size = rel(.8),
+                                   angle = 90),
         panel.grid.major.x = element_blank(),
         plot.margin = unit(c(.1, .2, .1, .2), "cm"))
 
@@ -154,7 +159,7 @@ P <- arrangeGrob(p_Cases, p_Tests, p_Hosp, p_Death, nrow = 1)
 p_width <- 6
 p_height <- (9/16) * p_width 
 
-ggsave(paste("figs/weekly-percent-change-", tdy_date,".png", sep = ''),
+ggsave(paste("figs/CT-weekly-metrics-", tdy_date,".png", sep = ''),
        P,
        width = p_width,
        height = p_height,
