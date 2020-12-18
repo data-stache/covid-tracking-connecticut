@@ -21,6 +21,7 @@ p_new_case <- covid_ct %>%
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_y_continuous(expand = c(0,0)) +
+  coord_cartesian(ylim = c(0, max(covid_ct$new_cases_07da, na.rm = TRUE) * 1.1)) +
   theme_DataStache() +
   theme(text = element_text(size = rel(.55)),
         axis.text = element_text(size = rel(.65)),
@@ -38,6 +39,7 @@ p_new_test <- covid_ct %>%
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_y_continuous(expand = c(0,0)) +
+  coord_cartesian(ylim = c(0, max(covid_ct$new_tests_07da, na.rm = TRUE) * 1.1)) +
   theme_DataStache() +
   theme(text = element_text(size = rel(.55)),
         axis.text = element_text(size = rel(.65)),
@@ -55,6 +57,7 @@ p_new_deaths <- covid_ct %>%
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_y_continuous(expand = c(0,0)) +
+  coord_cartesian(ylim = c(0, max(covid_ct$new_deaths_07da, na.rm = TRUE) * 1.1)) +
   theme_DataStache() +
   theme(text = element_text(size = rel(.55)),
         axis.text = element_text(size = rel(.65)),
@@ -89,6 +92,7 @@ p_hosp <- covid_ct %>%
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_y_continuous(expand = c(0,0)) +
+  coord_cartesian(ylim = c(0, max(covid_ct$cur_hosp_07da, na.rm = TRUE) * 1.1)) +
   theme_DataStache() +
   theme(text = element_text(size = rel(.55)),
         axis.text = element_text(size = rel(.65)),
@@ -106,6 +110,7 @@ p_pos <- covid_ct %>%
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
   scale_x_date(date_labels = "%b", breaks= "1 month") +
   scale_y_continuous(expand = c(0,0)) + 
+  coord_cartesian(ylim = c(0, max(covid_ct$percent_pos_07da, na.rm = TRUE) * 1.1)) +
   theme_DataStache() +
   theme(text = element_text(size = rel(.55)),
         axis.text = element_text(size = rel(.65)),
