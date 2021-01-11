@@ -14,7 +14,7 @@ p_new_case <- covid_ct %>%
   #geom_vline(xintercept = ymd(20201008), size = .15, color = "grey40") +
   geom_bar(stat = "identity", fill="blue", alpha = .3, size = .1) +
   scale_color_manual(values="light grey") +
-  geom_line(aes(y = new_cases_07da), size = .25, col="blue") +
+  geom_line(aes(y = new_cases_07da), size = .2, col="blue") +
   ggtitle("Connecticut New Covid Cases",
           subtitle = "New Cases Per Day With Rolling 7 Day Average") +
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
@@ -32,7 +32,7 @@ p_new_test <- covid_ct %>%
   geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_bar(stat = "identity", fill="dark green", alpha = .3, size = .1) +
   scale_color_manual(values="light grey") +
-  geom_line(aes(y = new_tests_07da), size = .25, col="dark green") +
+  geom_line(aes(y = new_tests_07da), size = .2, col="dark green") +
   ggtitle("Connecticut New Covid Tests",
           subtitle = "Tests Per Day With Rolling 7 Day Average") +
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
@@ -50,7 +50,7 @@ p_new_deaths <- covid_ct %>%
   geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_bar(stat = "identity", fill="dark red", alpha = .3, size = .1) +
   scale_color_manual(values="light grey") +
-  geom_line(aes(y = new_deaths_07da), size = .25, col="dark red") +
+  geom_line(aes(y = new_deaths_07da), size = .2, col="dark red") +
   ggtitle("Connecticut New Covid Deaths",
           subtitle = "Deaths Per Day With Rolling 7 Day Average") +
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
@@ -68,7 +68,7 @@ p_new_hosp <- covid_ct %>%
   geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_bar(stat = "identity", fill="yellow4", alpha = .3, size = .1) +
   scale_color_manual(values="light grey") +
-  geom_line(aes(y = new_hosp_07da), size = .25, col="yellow4") +
+  geom_line(aes(y = new_hosp_07da), size = .2, col="yellow4") +
   ggtitle("Connecticut New Hospitalization",
           subtitle = "Newly Hospitalized Per Day With Rolling 7 Day Average") +
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
@@ -86,7 +86,7 @@ p_hosp <- covid_ct %>%
   geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_bar(stat = "identity", fill="orange4", alpha = .3, size = .1) +
   scale_color_manual(values="light grey") +
-  geom_line(aes(y = cur_hosp_07da), size = .25, col="orange4") +
+  geom_line(aes(y = cur_hosp_07da), size = .2, col="orange4") +
   ggtitle("Connecticut New Hospitalization",
           subtitle = "Currently Hospitalized With Rolling 7 Day Average") +
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
@@ -104,7 +104,7 @@ p_pos <- covid_ct %>%
   geom_hline(yintercept=0, col = "grey40", size = .2) +
   geom_bar(stat = "identity", fill="orange4", alpha = .3, size = .1) +
   scale_color_manual(values="light grey") +
-  geom_line(aes(y = percent_pos_07da), size = .25, col="orange4") +
+  geom_line(aes(y = percent_pos_07da), size = .2, col="orange4") +
   ggtitle("Connecticut Percent Positive",
           subtitle = "Percent Share Positive With Rolling 7 Day Average") +
   labs(caption = "Created by Andrew F. Griffin \n Covid Data from data.ct.gov") +
