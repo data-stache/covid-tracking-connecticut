@@ -198,6 +198,11 @@ T: `r format(covid_ct$new_tests[1], big.mark = ",")` `r ifelse(covid_ct$new_test
 Y: `r format(covid_ct$new_tests[covid_ct$date == ind_tdy - 1], big.mark = ",")`  
 LW: `r format(covid_ct$new_tests[covid_ct$date == ind_tdy - 7], big.mark = ",")`  
 <br></br>
+New Hospitalization  
+T: `r format(covid_ct$new_hosp[1], big.mark = ",")` `r ifelse(covid_ct$new_hosp[1] == max(covid_ct$new_hosp, na.rm = TRUE), "*", "")`  
+Y: `r format(covid_ct$new_hosp[covid_ct$date == ind_tdy - 1], big.mark = ",")`  
+LW: `r format(covid_ct$new_hosp[covid_ct$date == ind_tdy - 7], big.mark = ",")`  
+<br></br>
 Percent Positive  
 T: `r round(covid_ct$percent_pos[1]*100, digits = 1)`%  
 Y: `r round(covid_ct$percent_pos[covid_ct$date == ind_tdy - 1]*100, digits = 1)`%  
