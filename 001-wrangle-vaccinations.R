@@ -43,17 +43,18 @@ vaccinations <- vaccinations %>%
          new_fully_vaccinated_per_cap_07da = rollapply(new_fully_vaccinated_per_cap, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
          # Share Populations
          share_used_doses = share_doses_used,
+         share_used_doses_07da = rollapply(share_used_doses, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
          share_pop_vaccinated = people_vaccinated / CT_POP,
          share_pop_fully_vaccinated = people_fully_vaccinated / CT_POP) %>%
+  # Set Weeks to Friday for Week Calculations
+  mutate(week = floor_date(date, unit = 'week', week_start = getOption('lubridate.week.start', 6)),
+         day = weekdays(date)) %>%
   select(-share_doses_used)
-
-head(vaccinations)
-
+  
 save(vaccinations, file = 'rda/vaccinations.rda')
 
 vaccinations %>%
   filter(date == max(date)) %>%
-  select(date, share_used_doses, share_pop_vaccinated, share_pop_fully_vaccinated, new_vaccinations_07da, new_people_vaccinated_07da, new_fully_vaccinated_07da) %>%
+  select(date, share_used_doses_07da, share_pop_vaccinated, share_pop_fully_vaccinated, new_vaccinations_07da, new_people_vaccinated_07da, new_fully_vaccinated_07da) %>%
   kable()
-
 
