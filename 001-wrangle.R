@@ -106,14 +106,14 @@ library(zoo)
 # COUNTY ADD 7 DAY ROLLING AVERAGES
 covid_ct_counties <- covid_ct_counties %>%
   group_by(county) %>%
-  mutate(new_cases_07da = rollapply(new_cases, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
-         new_tests_07da = rollapply(new_tests, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
-         new_deaths_07da = rollapply(new_deaths, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
-         new_hosp_07da = rollapply(new_hosp, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="center"),
-         new_cases_percap_07da = rollapply(new_cases_percap, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
-         new_tests_percap_07da = rollapply(new_tests_percap, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
-         new_deaths_percap_07da = rollapply(new_deaths_percap, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
-         new_hosp_percap_07da = rollapply(new_hosp_percap, width = 7, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="center"),) %>%
+  mutate(new_cases_07da = rollapply(new_cases, width = 14, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
+         new_tests_07da = rollapply(new_tests, width = 14, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
+         new_deaths_07da = rollapply(new_deaths, width = 14, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
+         new_hosp_07da = rollapply(new_hosp, width = 14, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="center"),
+         new_cases_percap_07da = rollapply(new_cases_percap, width = 14, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
+         new_tests_percap_07da = rollapply(new_tests_percap, width = 14, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
+         new_deaths_percap_07da = rollapply(new_deaths_percap, width = 14, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="left"),
+         new_hosp_percap_07da = rollapply(new_hosp_percap, width = 14, FUN=function(x) mean(x, na.rm=TRUE), by=1, by.column=TRUE, partial=TRUE, fill=NA, align="center"),) %>%
   ungroup()
 
 # COUNTY COLUMN ORDER

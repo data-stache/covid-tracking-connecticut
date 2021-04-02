@@ -5,12 +5,14 @@ options(scipen = 999)
 
 load('rda/vaccinations.rda')
 load("/Users/andrewgriffin/projects/zConstants/rda/theme_DataStache.rda")
+load('rda/ind_tdy.rda')
 
 tdy_date <- vaccinations$date[1]
 
 names(vaccinations)
 
 covid_ct_weekly <- vaccinations %>%
+  filter(date <= ind_tdy) %>%
   group_by(week) %>%
   summarize(new_vaccinations = sum(new_vaccinations),
             new_people_vaccinated = sum(new_people_vaccinated),

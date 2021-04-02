@@ -13,10 +13,9 @@ download.file(url, destfile = dest_file)
 policy <- read.csv('data/usa-covid-policy-by-state.csv') %>%
   mutate(Date = ymd(Date)) %>%
   arrange(desc(Date)) %>%
-  filter(RegionName == 'Connecticut') %>%
-  select(RegionCode, Date,
+  select(RegionName, Date,
          StringencyIndexForDisplay, GovernmentResponseIndexForDisplay, ContainmentHealthIndexForDisplay, EconomicSupportIndexForDisplay) %>%
-  rename(state = RegionCode,
+  rename(state = RegionName,
          date = Date,
          stringency_index = StringencyIndexForDisplay,
          government_index = GovernmentResponseIndexForDisplay,
