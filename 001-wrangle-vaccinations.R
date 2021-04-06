@@ -57,3 +57,9 @@ vaccinations %>%
   filter(date == max(date)) %>%
   select(date, share_used_doses_07da, share_pop_vaccinated, share_pop_fully_vaccinated, new_vaccinations_07da, new_people_vaccinated_07da, new_fully_vaccinated_07da) %>%
   kable()
+
+# LAST UPDATE
+max(vaccinations$date)
+
+# CLEAR ENVIRONS
+rm(list=ls())

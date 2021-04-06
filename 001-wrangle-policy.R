@@ -22,7 +22,8 @@ policy <- read.csv('data/usa-covid-policy-by-state.csv') %>%
          containment_index = ContainmentHealthIndexForDisplay,
          economic_index = EconomicSupportIndexForDisplay) %>%
   mutate(mean_index = (stringency_index + government_index + containment_index + economic_index) / 4,
-         state = str_replace(state, 'US_', ''))
+         state = str_replace(state, 'US_', '')) %>%
+  filter(state == 'Connecticut')
 
 save(policy, file = 'rda/policy.rda')
 rm(list=ls())

@@ -29,8 +29,9 @@ change <- round(((covid_ct_weekly$new_vaccinations[1] - covid_ct_weekly$new_vacc
 p_NEW_VACCINATIONS <- covid_ct_weekly %>%
   ggplot(aes(x = week, y = new_vaccinations)) +
   geom_col(fill = 'red4') +
-  ggtitle(paste('CT New Vaccinations\nWeek Beginning', month(max_date, label = TRUE), day(max_date)),
+  ggtitle(paste('CT New Doses Used\nWeek Beginning', month(max_date, label = TRUE), day(max_date)),
           subtitle = paste(ifelse(change > 0, '+', ''), change, '% From Last Week', sep = '')) +
+  scale_y_continuous(breaks = seq(0, 500000, 50000)) +
   scale_x_date(breaks = function(x) seq.Date(from = min_date, 
                                              to = max_date, 
                                              by = "2 weeks"),
@@ -39,7 +40,7 @@ p_NEW_VACCINATIONS <- covid_ct_weekly %>%
                                                    by = "week"),
                date_labels = '%b-%d') +
   theme_DataStache() +
-  coord_cartesian(expand = FALSE) +
+  coord_cartesian(expand = FALSE, ylim = c(0, 250000)) +
   geom_hline(yintercept = 0, size = .25 , col = "grey40") +
   theme(plot.title = element_text(size = rel(.5), hjust = .5),
         plot.subtitle = element_text(size = rel(.5), face = 'bold',
@@ -69,8 +70,9 @@ p_NEW_VAX <- covid_ct_weekly %>%
                                                    to = max_date, 
                                                    by = "week"),
                date_labels = '%b-%d') +
+  scale_y_continuous(breaks = seq(0, 500000, 50000)) +
   theme_DataStache() +
-  coord_cartesian(expand = FALSE) +
+  coord_cartesian(expand = FALSE, ylim = c(0, 250000)) +
   geom_hline(yintercept = 0, size = .25 , col = "grey40") +
   theme(plot.title = element_text(size = rel(.5), hjust = .5),
         plot.subtitle = element_text(size = rel(.5), face = 'bold',
@@ -100,8 +102,9 @@ p_FULLY_VAX <- covid_ct_weekly %>%
                                                    to = max_date, 
                                                    by = "week"),
                date_labels = '%b-%d') +
+  scale_y_continuous(breaks = seq(0, 500000, 50000)) +
   theme_DataStache() +
-  coord_cartesian(expand = FALSE) +
+  coord_cartesian(expand = FALSE, ylim = c(0, 250000)) +
   geom_hline(yintercept = 0, size = .25 , col = "grey40") +
   theme(plot.title = element_text(size = rel(.5), hjust = .5),
         plot.subtitle = element_text(size = rel(.5), face = 'bold',
