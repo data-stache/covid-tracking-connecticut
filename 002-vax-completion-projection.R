@@ -115,10 +115,10 @@ G <- dat_visual %>%
   geom_hline(yintercept = CT_THRESHOLD, size = .5, color = 'red') +
   geom_hline(yintercept = CT_THRESH_25, size = .5, color = 'grey') +
   geom_hline(yintercept = CT_THRESH_50, size = .5, color = 'grey') +
-  geom_point(aes(y = people_fully_vaccinated), alpha = .5, size = .3) +
   geom_line(aes(y = pred_exp), color = 'red', size = .4) +
   geom_line(aes(y = conf_hi), color = 'darkblue', size = .1) +
   geom_line(aes(y = conf_lo), color = 'darkblue', size = .1) +
+  geom_point(aes(y = people_fully_vaccinated), alpha = .5, size = .3) +
   geom_label(aes(x = window[1], y = CT_THRESHOLD, label = window[1]), size = 2) +
   coord_cartesian(ylim = c(0, CT_THRESHOLD + 1000), xlim = c(min(dat$date), exp_pred_date+20)) +
   theme_DataStache()
